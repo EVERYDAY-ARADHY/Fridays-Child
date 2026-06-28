@@ -2,18 +2,19 @@ const mongoose = require('mongoose');
 
 const MONGO_URI = 'mongodb+srv://Aditi:fridayschildislovingandgiving9@aditi.y9fnpfp.mongodb.net/fridays_child?retryWrites=true&w=majority&appName=Aditi';
 
-let cachedDb = null;
 async function connectToDatabase() {
-  if (cachedDb) return cachedDb;
-  const client = await mongoose.connect(MONGO_URI);
-  cachedDb = client;
-  return client;
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+  return mongoose.connect(MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+  }, { bufferCommands: false });
 }
 
 const likeSchema = new mongoose.Schema({
   itemId: { type: String, required: true, unique: true },
   count:  { type: Number, default: 0 }
-});
+}, { bufferCommands: false });
 
 const Like = mongoose.models.Like || mongoose.model('Like', likeSchema);
 
@@ -26,10 +27,10 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
-      const doc = await Like.findOne({ itemId: id });
-      res.status(200).json({ count: doc ? doc.count : 0 });
+      const doc = await Like.findOne({ itemId: id }, { bufferCommands: false });
+      res.status(200).json({ count: doc ? doc.count : 0 }, { bufferCommands: false });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message }, { bufferCommands: false });
     }
   } else if (req.method === 'POST') {
     try {
@@ -38,9 +39,9 @@ module.exports = async (req, res) => {
         { $inc: { count: 1 } },
         { upsert: true, new: true }
       );
-      res.status(200).json({ count: doc.count });
+      res.status(200).json({ count: doc.count }, { bufferCommands: false });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message }, { bufferCommands: false });
     }
   } else {
     res.setHeader('Allow', ['GET', 'POST']);

@@ -106,8 +106,11 @@ app.use((req, res, next) => {
   }
 });
 
-// ── Start ───────────────────────────────────────────────
+// ── Start / Export ──────────────────────────────────────
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`[Friday's Child] API server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`[Friday's Child] API server running on http://localhost:${PORT}`);
+  });
+}
+module.exports = app;

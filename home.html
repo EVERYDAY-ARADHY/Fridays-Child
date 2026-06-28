@@ -228,11 +228,22 @@ But the child who is born on the Sabbath day
 Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     ];
 
-    function getAllItems(){
-      const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+    async function getAllItems(){
+      const customLocal=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+      let customDb = [];
+      try {
+        const res = await fetch('/api/items');
+        if (res.ok) customDb = await res.json();
+      } catch(e) { console.error('Failed to fetch DB items', e); }
+      
       const deleted=JSON.parse(localStorage.getItem('fc_deleted_ids')||'[]');
       const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
-      return [...DEFAULT_ITEMS,...custom].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i).map(i=>{
+      
+      // Combine local and DB items (DB items take precedence if IDs match)
+      const dbIds = customDb.map(i => i.id);
+      const filteredLocal = customLocal.filter(i => !dbIds.includes(i.id));
+      
+      return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i).map(i=>{
         if(!i.content) i.content = i.description;
         return i;
       });
@@ -241,7 +252,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     let allItems=[], items=[], state='folders', folderIndex=0, listIndex=0, readLines=[], readPage=0;
     const folders = ['Poems', 'Stories', 'Videos', 'Art', 'Pictures'];
     const folderToType = {'Poems':'Poem', 'Stories':'Story', 'Videos':'Video', 'Art':'Art', 'Pictures':'Picture'};
-    const linesPerPage=10;
+    const linesPerPage=7;
 
     function setViewState(newState) {
       state = newState;
@@ -485,20 +496,45 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       } else {
         iconEl.innerHTML='';
         const it = items[listIndex];
-        textEl.style.overflowY = 'scroll';
-        textEl.style.scrollbarWidth = 'none';
+        textEl.style.overflowY = 'hidden';
         textEl.style.fontSize = '14px'; // Slightly larger for reading
         textEl.style.whiteSpace = 'pre-wrap';
         textEl.style.textAlign = 'left';
-        textEl.textContent = `[ ${it.title.toUpperCase()} ]\n\n${it.content || it.description}`;
+        
+        let start=readPage*linesPerPage;
+        let visible=readLines.slice(start,start+linesPerPage);
+        let pg=Math.floor((readLines.length-1)/linesPerPage)||0;
+        let display=`[ ${it.title.toUpperCase()} ] ${readPage+1}/${pg+1}\n\n`;
+        display+=visible.join('\n');
+        
+        textEl.textContent = display;
         textEl.scrollTop = 0;
       }
     }
     
-    function chunkText(text){ return [text]; }
+    function chunkText(text){
+      if(!text) return [];
+      const lines = text.split('\n');
+      const result = [];
+      lines.forEach(line => {
+        const words = line.split(' ');
+        let cur = "";
+        words.forEach(w => {
+          if ((cur + w).length > 22) {
+            result.push(cur.trim());
+            cur = w + " ";
+          } else {
+            cur += w + " ";
+          }
+        });
+        if (cur) result.push(cur.trim());
+        else result.push(""); 
+      });
+      return result;
+    }
     
-    function initReader(){
-      allItems=getAllItems();
+    async function initReader(){
+      allItems=await getAllItems();
       state='folders';
       folderIndex=0;
       setViewState('folders');
@@ -544,11 +580,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
          setViewState('list');
       } else if(state==='list'&&items.length>0){
         const it = items[listIndex];
-        if(it.type === 'Story') {
-           readLines = [it.content];
-        } else {
-           readLines = chunkText(it.content);
-        }
+        readLines = chunkText(it.content || it.description);
         readPage=0;
         setViewState('read');
       } else if(state==='read'){

@@ -219,7 +219,7 @@
       document.querySelector('.drop-zone').style.display='flex';
     }
 
-    function publish(){
+    async function publish(){
       const title=document.getElementById('entryTitle').value.trim();
       const desc=document.getElementById('entryDesc').value.trim();
       const keyword=document.getElementById('entryKeyword').value.trim();
@@ -241,9 +241,21 @@
         creator:username,
         likes:0
       };
-      const customItems=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
-      customItems.unshift(newItem);
-      localStorage.setItem('fc_custom_items',JSON.stringify(customItems));
+      
+      try {
+        const res = await fetch('/api/items', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newItem)
+        });
+        if (!res.ok) throw new Error('Failed to save to database');
+      } catch (err) {
+        console.error(err);
+        alert('Could not save to database, but will try saving locally as backup.');
+        const customItems=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+        customItems.unshift(newItem);
+        localStorage.setItem('fc_custom_items',JSON.stringify(customItems));
+      }
       
       burst(window.innerWidth/2,window.innerHeight/2,50);
       setTimeout(()=>window.location.href='gallery.html',800);

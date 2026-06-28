@@ -204,11 +204,22 @@ Saturday's child works hard for a living,
 But the child who is born on the Sabbath day
 Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     ];
-    function getAllItems(){
-      const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+    async function getAllItems(){
+      const customLocal=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+      let customDb = [];
+      try {
+        const res = await fetch('/api/items');
+        if (res.ok) customDb = await res.json();
+      } catch(e) { console.error('Failed to fetch DB items', e); }
+      
       const deleted=JSON.parse(localStorage.getItem('fc_deleted_ids')||'[]');
       const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
-      return [...DEFAULT_ITEMS,...custom].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i);
+      
+      // Combine local and DB items (DB items take precedence if IDs match)
+      const dbIds = customDb.map(i => i.id);
+      const filteredLocal = customLocal.filter(i => !dbIds.includes(i.id));
+      
+      return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i);
     }
     function deleteItemById(id){
       const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
@@ -242,7 +253,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     }
 
     async function renderGallery(){
-      const all=getAllItems();
+      const all=await getAllItems();
       const filtered=all.filter(item=>{
         const mf=currentFilter==='All'||item.type===currentFilter;
         const q=searchQuery.toLowerCase();

@@ -157,7 +157,12 @@
           <label class="field-label" for="ownerPass">
             <span class="material-symbols-outlined" style="font-size:15px;">vpn_key</span> Secret Pass
           </label>
-          <input id="ownerPass" type="password" class="clay-input" placeholder="password"/>
+          <div style="position:relative;">
+            <input id="ownerPass" type="password" class="clay-input" placeholder="password" style="padding-right:40px;"/>
+            <button onclick="window.togglePassword()" type="button" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#6b1d4a;display:flex;align-items:center;justify-content:center;opacity:0.7;">
+              <span id="passIcon" class="material-symbols-outlined" style="font-size:18px;">visibility</span>
+            </button>
+          </div>
         </div>
         <div id="ownerError" class="error-strip" style="display:none;margin-bottom:14px;">Wrong credentials — try again</div>
         <button onclick="enterAsOwner()" class="clay-button" style="width:100%;background:linear-gradient(135deg,#6b1d4a,#8b1a4a);box-shadow:0 4px 0 0 #3d0a28;">
@@ -200,7 +205,7 @@
     window.enterAsOwner = function(){
       const user=document.getElementById('ownerUsername').value.trim().toLowerCase();
       const pass=document.getElementById('ownerPass').value.trim();
-      if(user==='ms. aditi'&&pass==="Friday'schildislovingandgiving9"){
+      if(user==='ms aditi'&&pass==="fridayschild"){
         localStorage.setItem('fc_username','Ms. Aditi');
         localStorage.setItem('fc_role','owner');
         window.location.href='home.html';
@@ -214,6 +219,17 @@
       if(e.key!=='Enter')return;
       document.getElementById('ownerForm').style.display!=='none'?window.enterAsOwner():window.enterAsGuest();
     });
+    window.togglePassword = function() {
+      const input = document.getElementById('ownerPass');
+      const icon = document.getElementById('passIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
   </script>
   <script src="pixel_trail.js"></script>
   <script src="music.js"></script>

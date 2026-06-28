@@ -508,12 +508,12 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     document.getElementById('btnUp').addEventListener('click',()=>{
       if(state==='folders'){tone(659,'sine',0.08);folderIndex=(folderIndex-1+folders.length)%folders.length;renderScreen();}
       else if(state==='list'&&items.length>0){tone(659,'sine',0.08);listIndex=(listIndex-1+items.length)%items.length;renderScreen();}
-      else if(state==='read'&&items[listIndex].type==='Story'){document.getElementById('screenText').scrollTop-=40;}
+      else if(state==='read'){document.getElementById('screenText').scrollTop-=40;}
     });
     document.getElementById('btnDown').addEventListener('click',()=>{
       if(state==='folders'){tone(392,'sine',0.08);folderIndex=(folderIndex+1)%folders.length;renderScreen();}
       else if(state==='list'&&items.length>0){tone(392,'sine',0.08);listIndex=(listIndex+1)%items.length;renderScreen();}
-      else if(state==='read'&&items[listIndex].type==='Story'){document.getElementById('screenText').scrollTop+=40;}
+      else if(state==='read'){document.getElementById('screenText').scrollTop+=40;}
     });
     document.getElementById('btnLeft').addEventListener('click',()=>{
       if(state==='read'&&readPage>0){tone(494,'sine',0.1);readPage--;renderScreen();}

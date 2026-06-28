@@ -147,26 +147,38 @@
       {id:'default_7',title:'Virtual Hug',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Sending warmth through the wires.',content:'A simple string of text I send,\nto reach you, my faraway friend.\nThough screens divide us, cold and wide,\nthis little message brings me to your side.',creator:'Ms. Aditi',likes:0},
       {id:'default_8',title:'Glitch Art',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Beauty in the broken code.',content:'A stuttering frame, a shifted line,\na beautiful mistake, almost divine.\nPerfection is boring, neat and clean,\nthe glitches are where the truth is seen.',creator:'Ms. Aditi',likes:0}
     ];
-    function getItem(id){
-      const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
-      const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
-      let it=[...DEFAULT_ITEMS,...custom].find(i=>i.id===id);
-      if(it&&edited[id])it={...it,...edited[id]};
+    async function fetchItem(id){
+      let db = [];
+      try {
+        const res = await fetch('/api/items');
+        if(res.ok) db = await res.json();
+      } catch(e) {}
+      
+      const edited = JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
+      const deleted = JSON.parse(localStorage.getItem('fc_deleted_items')||'[]');
+      if(deleted.includes(id)) return null;
+      
+      let it = [...DEFAULT_ITEMS, ...db].find(i=>i.id===id);
+      if(it && edited[id]) it = {...it, ...edited[id]};
       return it;
     }
 
-    const item=getItem(itemId);
-    if(item){
-      document.getElementById('artImage').src=item.image||'https://lh3.googleusercontent.com/aida-public/AB6AXuC5v1bjqylWuchVZdU5AG6GZj9MEJAfPcNjZRBLAnuMNqDJx7zrfQsJHD2y6yr2nunsRxG1C2gI4LZjY9httWimDoT9eLZ9H5h2HzEM2EYPTy2GNe4Gl1ffPbZBIY7MA0s6_M0Zo0JLmsIpQD93FKso8bWPpxxQzq80JtxJkszTtpt0lfSo9o4N2xXtmK-f4wLes8R39xhblNw4M33zNUJrI7Bjg2tPA7tZwJff4Qr6IsKI0Na-zDD5fDbPyKFt0erq_7NlpBR-ARwT';
-      document.getElementById('artTitle').textContent=item.title;
-      document.getElementById('artCreator').textContent='@'+(item.creator||'anonymous');
-      document.getElementById('artDesc').textContent=item.description;
-      fetchLikes();
-      loadComments();
-    } else {
-      document.getElementById('artTitle').textContent="Not Found";
-      document.getElementById('artDesc').textContent="This artwork has vanished into the digital void.";
+    async function init() {
+      const item = await fetchItem(itemId);
+      if(item){
+        document.getElementById('artImage').src=item.image||'https://lh3.googleusercontent.com/aida-public/AB6AXuC5v1bjqylWuchVZdU5AG6GZj9MEJAfPcNjZRBLAnuMNqDJx7zrfQsJHD2y6yr2nunsRxG1C2gI4LZjY9httWimDoT9eLZ9H5h2HzEM2EYPTy2GNe4Gl1ffPbZBIY7MA0s6_M0Zo0JLmsIpQD93FKso8bWPpxxQzq80JtxJkszTtpt0lfSo9o4N2xXtmK-f4wLes8R39xhblNw4M33zNUJrI7Bjg2tPA7tZwJff4Qr6IsKI0Na-zDD5fDbPyKFt0erq_7NlpBR-ARwT';
+        document.getElementById('artTitle').textContent=item.title;
+        document.getElementById('artCreator').textContent='@'+(item.creator||'anonymous');
+        document.getElementById('artDesc').textContent=item.description;
+        fetchLikes();
+        loadComments();
+      } else {
+        document.getElementById('artTitle').textContent="Not Found";
+        document.getElementById('artDesc').textContent="This artwork has vanished into the digital void.";
+      }
     }
+    
+    init();
 
     // ── API Integration ─────────────────────────────────
     async function fetchLikes(){

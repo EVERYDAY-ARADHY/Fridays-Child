@@ -184,20 +184,20 @@
     function ambientBurst(){burst(Math.random()*canvas.width,Math.random()*canvas.height*0.7,18);setTimeout(ambientBurst,Math.random()*3000+2000);}
     ambientBurst();
     
-    function switchTab(tab){
+    window.switchTab = function(tab){
       const isGuest=tab==='guest';
       document.getElementById('tabGuest').className='tab-btn'+(isGuest?' active':'');
       document.getElementById('tabOwner').className='tab-btn'+(!isGuest?' active':'');
       document.getElementById('visitorForm').style.display=isGuest?'block':'none';
       document.getElementById('ownerForm').style.display=!isGuest?'block':'none';
     }
-    function enterAsGuest(){
+    window.enterAsGuest = function(){
       const name=document.getElementById('visitorName').value.trim()||'Guest';
       localStorage.setItem('fc_username',name);
       localStorage.setItem('fc_role','guest');
       window.location.href='home.html';
     }
-    function enterAsOwner(){
+    window.enterAsOwner = function(){
       const user=document.getElementById('ownerUsername').value.trim().toLowerCase();
       const pass=document.getElementById('ownerPass').value.trim();
       if(user==='ms. aditi'&&pass==='Friday\\'schildislovingandgiving9'){
@@ -212,9 +212,8 @@
     }
     document.addEventListener('keydown',e=>{
       if(e.key!=='Enter')return;
-      document.getElementById('ownerForm').style.display!=='none'?enterAsOwner():enterAsGuest();
+      document.getElementById('ownerForm').style.display!=='none'?window.enterAsOwner():window.enterAsGuest();
     });
-    buildNav('dashboard');
   </script>
   <script src="pixel_trail.js"></script>
   <script src="music.js"></script>

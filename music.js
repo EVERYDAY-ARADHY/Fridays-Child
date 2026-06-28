@@ -63,9 +63,12 @@
   
   document.body.appendChild(container);
 
-  const audio = new Audio(SONGS[currentSongIndex].url);
-  audio.loop = true;
+  const audio = new Audio(encodeURI(SONGS[currentSongIndex].url));
   audio.volume = 0.25; 
+  
+  audio.addEventListener('ended', () => {
+    changeSong(1);
+  });
   
   const btn = document.getElementById('musicBtn');
   const prevBtn = document.getElementById('musicPrevBtn');
@@ -100,7 +103,7 @@
     currentSongIndex = (currentSongIndex + direction + SONGS.length) % SONGS.length;
     sessionStorage.setItem('fc_music_index', currentSongIndex);
     
-    audio.src = SONGS[currentSongIndex].url;
+    audio.src = encodeURI(SONGS[currentSongIndex].url);
     audio.currentTime = 0;
     
     if (wasPlaying || isPlaying) {

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Friday's Child — Art Detail</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    * { cursor:url('cursor8.png') 4 4,auto!important; box-sizing:border-box; }
+    a,button,[onclick] { cursor:url('cursor8.png') 4 4,pointer!important; }
+    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; }
+    body::before { content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(139,26,74,0.06) 1px,transparent 1px),linear-gradient(to bottom,rgba(139,26,74,0.06) 1px,transparent 1px);background-size:24px 24px;z-index:0; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+    .top-nav { position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:rgba(255,228,232,0.7);backdrop-filter:blur(20px);box-shadow:inset 0 2px 4px rgba(255,255,255,0.75),0 6px 16px rgba(139,26,74,0.1);border-bottom:2px solid #c44569; }
+    .site-name { font-family:'Silkscreen',cursive;font-size:20px;color:#6b1d4a;text-decoration:none; }
+    .nav-link { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b1d4a;text-decoration:none;padding:7px 13px;border-radius:8px;transition:all 0.15s; }
+    .nav-link:hover,.nav-link.active { background:rgba(196,69,105,0.25);color:#8b1a4a; }
+    .user-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:5px 14px;border-radius:20px;background:#fff0f5;box-shadow:3px 3px 8px rgba(196,69,105,0.15),-3px -3px 8px rgba(255,255,255,0.9);color:#8b1a4a; }
+    .owner-badge { background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
+
+    .back-btn { font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#6b1d4a;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,240,245,0.8);border:2px solid #c44569;border-radius:9999px;box-shadow:3px 3px 0 #c44569;transition:all 0.1s;margin-bottom:24px; }
+    .back-btn:hover { background:white;color:#8b1a4a; }
+    .back-btn:active { transform:translate(2px,2px);box-shadow:1px 1px 0 #c44569; }
+
+    .art-container { background:#fff0f5;box-shadow:16px 16px 32px rgba(196,69,105,0.15),-16px -16px 32px rgba(255,255,255,0.9),inset 2px 2px 4px rgba(255,255,255,0.7);border:2px dashed rgba(196,69,105,0.35);border-radius:24px;overflow:hidden;margin-bottom:32px;display:flex;flex-direction:column; }
+    @media (min-width:768px) { .art-container { flex-direction:row; } }
+    .art-img-wrap { flex:1.2;background:linear-gradient(135deg,#e090b8,#c44569);position:relative;border-bottom:2px dashed rgba(196,69,105,0.35); }
+    @media (min-width:768px) { .art-img-wrap { border-bottom:none;border-right:2px dashed rgba(196,69,105,0.35);min-height:500px; } }
+    .art-img-wrap img { width:100%;height:100%;object-fit:cover; }
+    
+    .art-meta { flex:1;padding:32px;display:flex;flex-direction:column; }
+    .pixel-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;box-shadow:2px 2px 0 #c44569;border:2px solid #c44569;border-radius:0;padding:4px 10px;background:white;color:#6b1d4a;display:inline-block;margin-bottom:16px; }
+    .art-title { font-family:'Silkscreen',cursive;font-size:clamp(22px,4vw,32px);color:#6b1d4a;margin-bottom:8px;line-height:1.2; }
+    .art-creator { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#837375;margin-bottom:24px; }
+    .art-desc { font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:#514345;line-height:1.7;flex-grow:1;margin-bottom:32px;white-space:pre-wrap; }
+    
+    .action-row { display:flex;gap:12px;margin-bottom:24px; }
+    .action-btn { flex:1;background:linear-gradient(135deg,#8b1a4a,#c44569);color:white;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:2px solid #6b1d4a;border-radius:9999px;box-shadow:0 4px 0 0 #4a0e2e;transition:all 0.08s;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px; }
+    .action-btn:active { transform:translateY(4px);box-shadow:0 0 0 0 #4a0e2e; }
+
+    .comments-section { background:rgba(255,240,245,0.7);backdrop-filter:blur(12px);border:2px dashed rgba(196,69,105,0.3);border-radius:24px;padding:32px; }
+    .comment-card { background:white;border:2px solid rgba(139,26,74,0.1);border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 4px 12px rgba(139,26,74,0.04);position:relative; }
+    .comment-card::before { content:'';position:absolute;top:20px;left:-6px;width:10px;height:10px;background:white;border-left:2px solid rgba(139,26,74,0.1);border-bottom:2px solid rgba(139,26,74,0.1);transform:rotate(45deg); }
+    .clay-input { background:#fff0f5;border:2px solid rgba(139,26,74,0.2);border-radius:12px;padding:12px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#1b1c1a;width:100%;outline:none;box-shadow:inset 0 2px 4px rgba(0,0,0,0.04);transition:border-color 0.2s;margin-bottom:12px;resize:vertical; }
+    .clay-input:focus { border-color:#8b1a4a; }
+
+                
+    .sticker { position:fixed;pointer-events:none;image-rendering:pixelated;z-index:0;filter:drop-shadow(2px 4px 5px rgba(107,29,74,0.18)); }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(5deg);} }
+    #burstCanvas { position:fixed;inset:0;pointer-events:none;z-index:999; }
+  </style>
+</head>
+<body>
+  <canvas id="burstCanvas"></canvas>
+  <img src="1.png" class="sticker" style="width:65px;top:8%;left:2%;animation:float 5s ease-in-out infinite;"/>
+  <img src="6.png" class="sticker" style="width:55px;bottom:15%;right:3%;animation:float 4s ease-in-out infinite 0.5s;"/>
+
+  <header class="top-nav" id="topNav"></header>
+
+  <main style="max-width:1100px;margin:0 auto;padding:28px 20px;position:relative;z-index:1;">
+    <a href="gallery.html" class="back-btn">
+      <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span> Back to Gallery
+    </a>
+
+    <div class="art-container">
+      <div class="art-img-wrap">
+        <img id="artImage" src="" alt="Art piece"/>
+      </div>
+      <div class="art-meta">
+        <div><span class="pixel-badge">Art</span></div>
+        <h1 id="artTitle" class="art-title">Loading...</h1>
+        <div id="artCreator" class="art-creator">@...</div>
+        <div id="artDesc" class="art-desc">...</div>
+        <div class="action-row">
+          <button id="likeBtn" class="action-btn" onclick="doLike()">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">favorite</span>
+            <span id="likeCountText">Like</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="comments-section">
+      <h2 style="font-family:'Silkscreen',cursive;font-size:20px;color:#6b1d4a;margin-bottom:24px;display:flex;align-items:center;gap:8px;">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">chat_bubble</span> Comments
+      </h2>
+      <div id="commentsList" style="margin-bottom:24px;"></div>
+      <div style="background:white;padding:20px;border-radius:16px;border:2px dashed rgba(196,69,105,0.3);">
+        <textarea id="commentText" class="clay-input" rows="3" placeholder="Leave a sweet note..."></textarea>
+        <button onclick="postComment()" class="action-btn" style="width:auto;padding:10px 24px;">Post Note</button>
+      </div>
+    </div>
+  </main>
+
+  
+  <script>
+    // ── Pixel Burst ─────────────────────────────────────
+    const canvas=document.getElementById('burstCanvas'),ctx=canvas.getContext('2d');
+    function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+    resizeCanvas();window.addEventListener('resize',resizeCanvas);
+    const COLORS=['#c44569','#8b1a4a','#d4447a','#ffc0cb','#ffb2bd','#6b1d4a','#ffffff'];
+    let particles=[];
+    class Pixel{constructor(x,y){const a=Math.random()*Math.PI*2,s=Math.random()*5+1.5;this.x=x;this.y=y;this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s-Math.random()*2;this.sz=Math.random()*6+2;this.c=COLORS[Math.floor(Math.random()*COLORS.length)];this.l=1;this.d=Math.random()*0.02+0.012;this.g=0.11;}update(){this.vy+=this.g;this.x+=this.vx;this.y+=this.vy;this.vx*=0.98;this.l-=this.d;}draw(){ctx.save();ctx.globalAlpha=Math.max(0,this.l);ctx.fillStyle=this.c;ctx.fillRect(Math.round(this.x),Math.round(this.y),this.sz,this.sz);ctx.restore();}}
+    function burst(x,y,n=35){for(let i=0;i<n;i++)particles.push(new Pixel(x,y));}
+    function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles=particles.filter(p=>p.l>0);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+    animate();
+    
+    // ── Auth & Nav ──────────────────────────────────────
+    const username=localStorage.getItem('fc_username')||'Guest';
+    const role=localStorage.getItem('fc_role')||'guest';
+    const isOwner=role==='owner';
+
+    function buildNav(activePage){
+      const badge=isOwner?`<span class="user-badge owner-badge">${username}</span>`:`<span class="user-badge">@${username}</span>`;
+      let links=`<a href="home.html" class="nav-link${activePage==='dashboard'?' active':''}">Dashboard</a>`;
+      links+=`<a href="gallery.html" class="nav-link${activePage==='gallery'?' active':''}">Gallery</a>`;
+      if(isOwner) links+=`<a href="creation.html" class="nav-link${activePage==='studio'?' active':''}">Studio</a>`;
+      links+=`<a href="about.html" class="nav-link${activePage==='about'?' active':''}">About</a>`;
+      document.getElementById('topNav').innerHTML=`<a href="home.html" class="site-name">Friday's Child</a><nav style="display:flex;gap:4px;align-items:center;">${links}</nav><div style="display:flex;align-items:center;gap:12px;">${badge}</div>`;
+          }
+    buildNav('gallery');
+
+    // ── Load Data ───────────────────────────────────────
+    const urlParams=new URLSearchParams(window.location.search);
+    const itemId=urlParams.get('id');
+    const DEFAULT_ITEMS=[
+      {id:'default_1',title:'Cloud Dream',type:'Art',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuC5v1bjqylWuchVZdU5AG6GZj9MEJAfPcNjZRBLAnuMNqDJx7zrfQsJHD2y6yr2nunsRxG1C2gI4LZjY9httWimDoT9eLZ9H5h2HzEM2EYPTy2GNe4Gl1ffPbZBIY7MA0s6_M0Zo0JLmsIpQD93FKso8bWPpxxQzq80JtxJkszTtpt0lfSo9o4N2xXtmK-f4wLes8R39xhblNw4M33zNUJrI7Bjg2tPA7tZwJff4Qr6IsKI0Na-zDD5fDbPyKFt0erq_7NlpBR-ARwT',description:'Soft as cotton, sweet as dawn...',content:'Soft as cotton, sweet as dawn...',creator:'starry_night',likes:0},
+      {id:'default_2',title:"Sprout's Song",type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'A little leaf stretches out.',content:'Reaching for the digital sun,\na little leaf stretches out.\nIn the glow of the screen,\nlife begins to sprout.',creator:'pixel_poet',likes:0},
+      {id:'default_3',title:'Nap Time',type:'Art',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuBgKUytzEDhlPlO6_7x-cfru0kyGwuHoU2bmvrLJmnVIuRq0PzsvKYfLU51H_tACqz8MdwMhNNJptvYAK_O5uhQkCLVWWy0P47YHuXAKF-OvdBlZlAyc7mkwJM61v3qdXkpH22jRnWQ0vl2v_j-hVDpmgiKJEY8w4PSH9uHGr0dSduiPQuagY_X5dl5NihhmHKQ6-0s64QbAcfFam_nM5x99vlUkoXHVB38kwELnmd7RJGGDPm2Ef16nTHMYbfnYAtRjZZNVxYmhPYV',description:'Charging batteries and dreaming of electric sheep.',content:'Charging batteries and dreaming of electric sheep.',creator:'cyber_snooze',likes:0},
+      {id:'default_4',title:'Neon Rain',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Pink drops on a glass screen.',content:'Pink drops on a glass screen,\npixelated tears falling unseen.\nWashing away the static noise,\nbringing back my quiet joys.',creator:'Ms. Aditi',likes:0},
+      {id:'default_5',title:'Star Catch',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Chasing cursors in the dark.',content:'I chased a cursor in the dark,\nit led me to a glowing park.\nWhere binary stars light the sky,\nand 8-bit clouds go floating by.',creator:'Ms. Aditi',likes:0},
+      {id:'default_6',title:'Quiet Room',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Humming servers, peaceful minds.',content:'The server hums a gentle tune,\nbeneath a synthetic, soft moon.\nNo loud alerts, no frantic pace,\njust peace inside this digital space.',creator:'Ms. Aditi',likes:0},
+      {id:'default_7',title:'Virtual Hug',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Sending warmth through the wires.',content:'A simple string of text I send,\nto reach you, my faraway friend.\nThough screens divide us, cold and wide,\nthis little message brings me to your side.',creator:'Ms. Aditi',likes:0},
+      {id:'default_8',title:'Glitch Art',type:'Poem',image:'https://lh3.googleusercontent.com/aida-public/AB6AXuChfnTjXeIzunLaH6zdcrya8Qav1s3IBWBvmfHDI_hHDQkJxMcdQOp72tJkXn_55L4SYVEzrUCXXxGbLQRdw9tUGeJGMebhu4JH3hloNpT6JzLbbTrirVBL0Z5dNl1zPuqIUHQDGDBDpcKOrZ7SoEAykj1O52xlAIMhKCgqJajcx_rXT_X_OTWxpIc8a6oMYBkYcmBeaQrceYZig8oWpH8oL2EVqifqmejS131Aqsx8nmJKPCIsTThQLoASkYsTnr4izXUJ20yn8jEU',description:'Beauty in the broken code.',content:'A stuttering frame, a shifted line,\na beautiful mistake, almost divine.\nPerfection is boring, neat and clean,\nthe glitches are where the truth is seen.',creator:'Ms. Aditi',likes:0}
+    ];
+    function getItem(id){
+      const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+      const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
+      let it=[...DEFAULT_ITEMS,...custom].find(i=>i.id===id);
+      if(it&&edited[id])it={...it,...edited[id]};
+      return it;
+    }
+
+    const item=getItem(itemId);
+    if(item){
+      document.getElementById('artImage').src=item.image||'https://lh3.googleusercontent.com/aida-public/AB6AXuC5v1bjqylWuchVZdU5AG6GZj9MEJAfPcNjZRBLAnuMNqDJx7zrfQsJHD2y6yr2nunsRxG1C2gI4LZjY9httWimDoT9eLZ9H5h2HzEM2EYPTy2GNe4Gl1ffPbZBIY7MA0s6_M0Zo0JLmsIpQD93FKso8bWPpxxQzq80JtxJkszTtpt0lfSo9o4N2xXtmK-f4wLes8R39xhblNw4M33zNUJrI7Bjg2tPA7tZwJff4Qr6IsKI0Na-zDD5fDbPyKFt0erq_7NlpBR-ARwT';
+      document.getElementById('artTitle').textContent=item.title;
+      document.getElementById('artCreator').textContent='@'+(item.creator||'anonymous');
+      document.getElementById('artDesc').textContent=item.description;
+      fetchLikes();
+      loadComments();
+    } else {
+      document.getElementById('artTitle').textContent="Not Found";
+      document.getElementById('artDesc').textContent="This artwork has vanished into the digital void.";
+    }
+
+    // ── API Integration ─────────────────────────────────
+    async function fetchLikes(){
+      try {
+        const res=await fetch(`/api/likes/${itemId}`);
+        const data=await res.json();
+        document.getElementById('likeCountText').textContent=`${data.count||0} Likes`;
+      } catch(e) {
+        document.getElementById('likeCountText').textContent=`0 Likes`;
+      }
+    }
+    async function doLike(){
+      const btn=document.getElementById('likeBtn');
+      burst(btn.getBoundingClientRect().x+50, btn.getBoundingClientRect().y, 40);
+      try {
+        const res=await fetch(`/api/likes/${itemId}`,{method:'POST'});
+        const data=await res.json();
+        document.getElementById('likeCountText').textContent=`${data.count||0} Likes`;
+      } catch(e) {
+        let cnt=parseInt(document.getElementById('likeCountText').textContent)||0;
+        document.getElementById('likeCountText').textContent=`${cnt+1} Likes`;
+      }
+    }
+
+    async function loadComments(){
+      const list=document.getElementById('commentsList');
+      try {
+        const res=await fetch(`/api/comments/${itemId}`);
+        const comments=await res.json();
+        if(!comments||!comments.length){
+          list.innerHTML=`<div style="text-align:center;color:#837375;font-family:Space Mono,monospace;font-size:11px;">No comments yet (*.*)</div>`;
+          return;
+        }
+        list.innerHTML=comments.map(c=>`
+          <div class="comment-card">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;color:#8b1a4a;margin-bottom:6px;">@${c.author}</div>
+            <p style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#514345;line-height:1.5;">${c.text}</p>
+          </div>
+        `).join('');
+      } catch(e) {
+        list.innerHTML=`<div style="text-align:center;color:#ba1a1a;font-family:Space Mono,monospace;font-size:11px;">(Database connection failed)</div>`;
+      }
+    }
+
+    async function postComment(){
+      const txt=document.getElementById('commentText').value.trim();
+      if(!txt)return;
+      document.getElementById('commentText').value='';
+      try {
+        await fetch(`/api/comments/${itemId}`,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({author:username, text:txt})
+        });
+        loadComments();
+        const btn=document.querySelector('.action-btn');
+        burst(btn.getBoundingClientRect().x, btn.getBoundingClientRect().y, 25);
+      } catch(e) {
+        alert("Couldn't connect to database!");
+      }
+    }
+  </script>
+  <script src="pixel_trail.js"></script>
+</body>
+</html>

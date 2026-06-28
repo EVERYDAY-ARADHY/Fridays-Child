@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Friday's Child — About</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    * { cursor:url('cursor8.png') 4 4,auto!important; box-sizing:border-box; }
+    *::selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
+    *::-moz-selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
+    a,button,[onclick] { cursor:url('cursor8.png') 4 4,pointer!important; }
+    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; }
+    body::before { content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(139,26,74,0.06) 1px,transparent 1px),linear-gradient(to bottom,rgba(139,26,74,0.06) 1px,transparent 1px);background-size:24px 24px;z-index:0; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+    .top-nav { position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:rgba(255,228,232,0.7);backdrop-filter:blur(20px);box-shadow:inset 0 2px 4px rgba(255,255,255,0.75),0 6px 16px rgba(139,26,74,0.1);border-bottom:2px solid #c44569; }
+    .site-name { font-family:'Silkscreen',cursive;font-size:20px;color:#6b1d4a;text-decoration:none; }
+    .nav-link { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b1d4a;text-decoration:none;padding:7px 13px;border-radius:8px;transition:all 0.15s; }
+    .nav-link:hover,.nav-link.active { background:rgba(196,69,105,0.25);color:#8b1a4a; }
+    .user-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:5px 14px;border-radius:20px;background:#fff0f5;box-shadow:3px 3px 8px rgba(196,69,105,0.15),-3px -3px 8px rgba(255,255,255,0.9);color:#8b1a4a; }
+    .owner-badge { background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
+
+    .about-card { background:#fff0f5;box-shadow:12px 12px 24px rgba(196,69,105,0.13),-12px -12px 24px rgba(255,255,255,0.88),inset 2px 2px 4px rgba(255,255,255,0.7);border:2px dashed rgba(196,69,105,0.35);border-radius:32px;padding:48px 40px;position:relative;overflow:hidden; }
+    .about-card::after { content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:rgba(212,68,122,0.1);filter:blur(30px);border-radius:50%;pointer-events:none; }
+    
+    .clay-button { background:linear-gradient(135deg,#8b1a4a,#c44569);color:white;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:2px solid #6b1d4a;border-radius:9999px;box-shadow:0 4px 0 0 #4a0e2e;transition:all 0.08s;padding:12px 24px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none; }
+    .clay-button:active { transform:translateY(4px);box-shadow:0 0 0 0 #4a0e2e; }
+    
+    .clay-button-danger { background:#fff0f5;color:#ba1a1a;border:2px solid #ba1a1a;box-shadow:0 4px 0 0 #ba1a1a; }
+    .clay-button-danger:active { box-shadow:0 0 0 0 #ba1a1a; }
+
+                
+    .sticker { position:fixed;pointer-events:none;image-rendering:pixelated;z-index:0;filter:drop-shadow(2px 4px 5px rgba(107,29,74,0.18)); }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(5deg);} }
+    @keyframes float-r { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(-5deg);} }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    #burstCanvas { position:fixed;inset:0;pointer-events:none;z-index:999; }
+  </style>
+</head>
+<body>
+  <canvas id="burstCanvas"></canvas>
+  <img src="2.png" class="sticker" style="width:72px;top:8%;left:2%;animation:float 4.5s ease-in-out infinite;"/>
+  <img src="3.png" class="sticker" style="width:58px;top:28%;right:2%;animation:float-r 5.5s ease-in-out infinite 0.8s;"/>
+  <img src="9.png" class="sticker" style="width:52px;bottom:20%;left:1.5%;animation:float 6s ease-in-out infinite 1.4s;"/>
+
+  <header class="top-nav" id="topNav"></header>
+
+  <main style="max-width:700px;margin:0 auto;padding:40px 20px;position:relative;z-index:1;">
+    <div class="about-card">
+      <div style="text-align:center;margin-bottom:40px;">
+        <span class="material-symbols-outlined" style="font-size:48px;color:#d4447a;font-variation-settings:'FILL' 1;animation:float 3s ease-in-out infinite;">favorite</span>
+        <h1 style="font-family:'Silkscreen',cursive;font-size:clamp(28px,5vw,42px);color:#6b1d4a;margin-top:10px;">About Her</h1>
+      </div>
+      
+      <p style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6;color:#514345;margin-bottom:24px;text-align:center;">
+        Welcome to <strong>Friday's Child</strong>, an art sanctuary curated to showcase the work of <strong>Ms. Aditi</strong>. 
+        Within this space, you'll discover a collection of different creative expressions. The gallery features a wide variety of art styles, 
+        ranging from poetry and stories to visual edits and photography. Each piece is collected to inspire and offer a cozy retreat into a world of imagination and cutecore aesthetics.
+      </p>
+      
+      <div style="width:100%; overflow:hidden; white-space:nowrap; margin-bottom:40px; position:relative; height:80px; -webkit-mask-image:linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image:linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
+        <div style="display:inline-block; white-space:nowrap; animation:marquee 15s linear infinite;">
+          <img src="2.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 3s ease-in-out infinite;">
+          <img src="3.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 4s ease-in-out infinite;">
+          <img src="4.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 3.5s ease-in-out infinite;">
+          <img src="5.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 3.2s ease-in-out infinite;">
+          <img src="7.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 4.1s ease-in-out infinite;">
+          <img src="9.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 3.8s ease-in-out infinite;">
+          <!-- Duplicate for seamless looping -->
+          <img src="2.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 3s ease-in-out infinite;">
+          <img src="3.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 4s ease-in-out infinite;">
+          <img src="4.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 3.5s ease-in-out infinite;">
+          <img src="5.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 3.2s ease-in-out infinite;">
+          <img src="7.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float 4.1s ease-in-out infinite;">
+          <img src="9.png" style="height:50px; display:inline-block; margin:0 30px; image-rendering:pixelated; animation:float-r 3.8s ease-in-out infinite;">
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:center;gap:16px;">
+        <a href="gallery.html" class="clay-button">
+          <span class="material-symbols-outlined" style="font-size:18px;">photo_library</span> Explore Gallery
+        </a>
+        <a href="index.html" class="clay-button clay-button-danger">
+          <span class="material-symbols-outlined" style="font-size:18px;">logout</span> Logout
+        </a>
+      </div>
+    </div>
+  </main>
+
+  
+  <script>
+    // ── Pixel Burst ─────────────────────────────────────
+    const canvas=document.getElementById('burstCanvas'),ctx=canvas.getContext('2d');
+    function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+    resizeCanvas();window.addEventListener('resize',resizeCanvas);
+    const COLORS=['#c44569','#8b1a4a','#d4447a','#ffc0cb','#ffb2bd','#6b1d4a','#ffffff'];
+    let particles=[];
+    class Pixel{constructor(x,y){const a=Math.random()*Math.PI*2,s=Math.random()*5+1.5;this.x=x;this.y=y;this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s-Math.random()*2;this.sz=Math.random()*6+2;this.c=COLORS[Math.floor(Math.random()*COLORS.length)];this.l=1;this.d=Math.random()*0.02+0.012;this.g=0.11;}update(){this.vy+=this.g;this.x+=this.vx;this.y+=this.vy;this.vx*=0.98;this.l-=this.d;}draw(){ctx.save();ctx.globalAlpha=Math.max(0,this.l);ctx.fillStyle=this.c;ctx.fillRect(Math.round(this.x),Math.round(this.y),this.sz,this.sz);ctx.restore();}}
+    function burst(x,y,n=35){for(let i=0;i<n;i++)particles.push(new Pixel(x,y));}
+    function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles=particles.filter(p=>p.l>0);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+    animate();
+    function ambientBurst(){burst(Math.random()*canvas.width,Math.random()*canvas.height*0.8,15);setTimeout(ambientBurst,Math.random()*4000+2500);}
+    ambientBurst();
+    
+    // ── Auth & Nav ──────────────────────────────────────
+    const username=localStorage.getItem('fc_username')||'Guest';
+    const role=localStorage.getItem('fc_role')||'guest';
+    const isOwner=role==='owner';
+
+    function buildNav(activePage){
+      const badge=isOwner?`<span class="user-badge owner-badge">${username}</span>`:`<span class="user-badge">@${username}</span>`;
+      let links=`<a href="home.html" class="nav-link${activePage==='dashboard'?' active':''}">Dashboard</a>`;
+      links+=`<a href="gallery.html" class="nav-link${activePage==='gallery'?' active':''}">Gallery</a>`;
+      if(isOwner) links+=`<a href="creation.html" class="nav-link${activePage==='studio'?' active':''}">Studio</a>`;
+      links+=`<a href="about.html" class="nav-link${activePage==='about'?' active':''}">About</a>`;
+      document.getElementById('topNav').innerHTML=`<a href="home.html" class="site-name">Friday's Child</a><nav style="display:flex;gap:4px;align-items:center;">${links}</nav><div style="display:flex;align-items:center;gap:12px;">${badge}</div>`;
+          }
+    buildNav('about');
+  </script>
+  <script src="pixel_trail.js"></script>
+  <script src="music.js"></script>
+</body>
+</html>

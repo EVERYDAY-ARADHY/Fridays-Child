@@ -1,21 +1,21 @@
 (function() {
   const SONGS = [
-    { name: 'AUR - SHIKAYAT', url: 'songs/AUR - SHIKAYAT - Raffey - Usama - Ahad (Official Music Video).mp3' },
-    { name: 'Fairytale', url: 'songs/Alexander Rybak - Fairytale (Lyrics) Norway  Eurovision Winner 2009.mp3' },
-    { name: 'Aurora - Runaway', url: 'songs/Aurora - Runaway (Lyrics).mp3' },
-    { name: 'Beach Weather', url: 'songs/Beach Weather - sex, drugs, etc. (Lyrics).mp3' },
-    { name: 'Shinunoga E-Wa', url: 'songs/Fujii Kaze - Shinunoga E-Wa (Lyrics).mp3' },
-    { name: 'KHAIRIYAT', url: 'songs/Full Song_ KHAIRIYAT (BONUS TRACK)  CHHICHHORE  Sushant, Shraddha  Pritam, Amitabh BArijit Singh.mp3' },
-    { name: 'Jhume Re Gori', url: 'songs/Gangubai Kathiawadi  Jhume Re Gori Lyrical  Sanjay Leela Bhansali  Alia Bhatt.mp3' },
-    { name: 'Kabhi Kabhi Aditi', url: 'songs/Kabhi Kabhi Aditi Lyrics - Rashid Ali, A.R. Rahman  Jaane Tu Ya Jaane Na.mp3' },
-    { name: 'Miracle', url: 'songs/Miracle (기적은 너와 내가 함께하는....mp3' },
-    { name: 'NewJeans Ditto', url: "songs/NewJeans 'Ditto' Lyrics (뉴진스 Ditto 가사) (Color Coded Lyrics).mp3" },
-    { name: 'Strawberries & Cigarettes', url: 'songs/Strawberries & Cigarettes.mp3' },
-    { name: 'Surf Curse - Freaks', url: 'songs/Surf Curse - Freaks [Official Audio].mp3' },
-    { name: 'TXT - Run Away', url: 'songs/TXT - Run Away (Color Coded Lyrics EngRomHan가사).mp3' },
-    { name: 'Love Story', url: 'songs/Taylor Swift - Love Story (Lyrics).mp3' },
-    { name: 'Tu Hai Kahan', url: 'songs/Tu Hai Kahan by AUR  تو ہے کہاں (Official Music Video).mp3' },
-    { name: 'Maps', url: 'songs/Yeah Yeah Yeahs - Maps (Lyrics).mp3' }
+    { name: 'AUR - SHIKAYAT', url: 'songs/aur-shikayat.mp3' },
+    { name: 'Fairytale', url: 'songs/fairytale.mp3' },
+    { name: 'Aurora - Runaway', url: 'songs/aurora-runaway.mp3' },
+    { name: 'Beach Weather', url: 'songs/beach-weather.mp3' },
+    { name: 'Shinunoga E-Wa', url: 'songs/fujii-kaze.mp3' },
+    { name: 'KHAIRIYAT', url: 'songs/khairiyat.mp3' },
+    { name: 'Jhume Re Gori', url: 'songs/jhume-re-gori.mp3' },
+    { name: 'Kabhi Kabhi Aditi', url: 'songs/kabhi-kabhi.mp3' },
+    { name: 'Miracle', url: 'songs/miracle.mp3' },
+    { name: 'NewJeans Ditto', url: "songs/newjeans-ditto.mp3" },
+    { name: 'Strawberries & Cigarettes', url: 'songs/strawberries.mp3' },
+    { name: 'Surf Curse - Freaks', url: 'songs/surf-curse.mp3' },
+    { name: 'TXT - Run Away', url: 'songs/txt-runaway.mp3' },
+    { name: 'Love Story', url: 'songs/love-story.mp3' },
+    { name: 'Tu Hai Kahan', url: 'songs/tu-hai-kahan.mp3' },
+    { name: 'Maps', url: 'songs/maps.mp3' }
   ];
   
   let currentSongIndex = parseInt(sessionStorage.getItem('fc_music_index') || '0');

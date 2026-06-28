@@ -216,7 +216,7 @@
     function tone(f,t='sine',d=0.15,v=0.06){if(audioCtx.state==='suspended')audioCtx.resume();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d);}
 
     const DEFAULT_ITEMS=[
-      {id:'poem1',title:"A Friday's Child",type:'Poem',image:'',description:"Friday's child is loving and giving,\\nSeeking the beauty in all that is living.\\nA sanctuary built on pink pastel dreams,\\nWhere art flows gently like soft, quiet streams.",creator:'Ms. Aditi',likes:0}
+      {id:'poem1',title:"Monday's Child",type:'Poem',image:'',description:"Monday's child is fair of face,\\nTuesday's child is full of grace,\\nWednesday's child is full of woe,\\nThursday's child has far to go,\\nFriday's child is loving and giving,\\nSaturday's child works hard for a living,\\nBut the child who is born on the Sabbath day\\nIs bonny and blithe and good and gay.",creator:'Mother Goose',likes:0}
     ];
 
     function getAllItems(){

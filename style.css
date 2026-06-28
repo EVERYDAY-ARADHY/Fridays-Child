@@ -6,8 +6,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Micro+5&family=Doto:wght@400;700;900&family=Bitcount+Grid+Double:wght@300;400;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
 
 /* ── Custom cursor ────────────────────────────────────────── */
-* { cursor: url('cursor8.png') 4 4, auto !important; box-sizing: border-box; margin:0; padding:0; }
-a, button, [onclick], [role="button"], select { cursor: url('cursor8.png') 4 4, pointer !important; }
+* { cursor: url('images/cursor8.png') 4 4, auto !important; box-sizing: border-box; margin:0; padding:0; }
+a, button, [onclick], [role="button"], select { cursor: url('images/cursor8.png') 4 4, pointer !important; }
 
 /* ── CSS Variables ───────────────────────────────────────── */
 :root {

@@ -4,28 +4,28 @@
  */
 
 const STICKERS = [
-  { src: '1.png',  size: 90,  speed: 5 },   // pink PC
-  { src: '2.png',  size: 70,  speed: 7 },   // I love you window
-  { src: '3.png',  size: 60,  speed: 4 },   // pixel heart
-  { src: '4.png',  size: 75,  speed: 6 },   // folder
-  { src: '5.png',  size: 65,  speed: 5 },   // folder
-  { src: '6.png',  size: 55,  speed: 8 },   // chat bubble
-  { src: '7.png',  size: 60,  speed: 6 },   // hourglass
-  { src: '9.png',  size: 70,  speed: 5 },   // cassette
-  { src: '10.png', size: 65,  speed: 7 },
-  { src: '11.png', size: 80,  speed: 4 },
-  { src: '12.png', size: 85,  speed: 6 },
-  { src: '13.png', size: 70,  speed: 5 },
-  { src: '14.png', size: 75,  speed: 7 },
-  { src: '15.png', size: 80,  speed: 4 },
-  { src: '16.png', size: 65,  speed: 6 },
-  { src: '17.png', size: 70,  speed: 5 },
-  { src: '18.png', size: 75,  speed: 7 },
-  { src: '19.png', size: 65,  speed: 6 },
-  { src: '20.png', size: 60,  speed: 4 },
-  { src: '21.png', size: 70,  speed: 5 },
-  { src: '22.png', size: 75,  speed: 7 },
-  { src: '23.png', size: 80,  speed: 6 },
+  { src: 'images/1.png',  size: 90,  speed: 5 },   // pink PC
+  { src: 'images/2.png',  size: 70,  speed: 7 },   // I love you window
+  { src: 'images/3.png',  size: 60,  speed: 4 },   // pixel heart
+  { src: 'images/4.png',  size: 75,  speed: 6 },   // folder
+  { src: 'images/5.png',  size: 65,  speed: 5 },   // folder
+  { src: 'images/6.png',  size: 55,  speed: 8 },   // chat bubble
+  { src: 'images/7.png',  size: 60,  speed: 6 },   // hourglass
+  { src: 'images/9.png',  size: 70,  speed: 5 },   // cassette
+  { src: 'images/10.png', size: 65,  speed: 7 },
+  { src: 'images/11.png', size: 80,  speed: 4 },
+  { src: 'images/12.png', size: 85,  speed: 6 },
+  { src: 'images/13.png', size: 70,  speed: 5 },
+  { src: 'images/14.png', size: 75,  speed: 7 },
+  { src: 'images/15.png', size: 80,  speed: 4 },
+  { src: 'images/16.png', size: 65,  speed: 6 },
+  { src: 'images/17.png', size: 70,  speed: 5 },
+  { src: 'images/18.png', size: 75,  speed: 7 },
+  { src: 'images/19.png', size: 65,  speed: 6 },
+  { src: 'images/20.png', size: 60,  speed: 4 },
+  { src: 'images/21.png', size: 70,  speed: 5 },
+  { src: 'images/22.png', size: 75,  speed: 7 },
+  { src: 'images/23.png', size: 80,  speed: 6 },
 ];
 
 // How many stickers to show simultaneously

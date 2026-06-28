@@ -9,7 +9,9 @@ export default defineConfig({
         home: resolve(__dirname, 'home.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         creation: resolve(__dirname, 'creation.html'),
-        about: resolve(__dirname, 'about.html')
+        about: resolve(__dirname, 'about.html'),
+        poem: resolve(__dirname, 'poem.html'),
+        art: resolve(__dirname, 'art.html')
       }
     }
   },

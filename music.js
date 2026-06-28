@@ -1,8 +1,21 @@
 (function() {
   const SONGS = [
-    { name: 'Cutecore Lofi', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3' }, // Works
-    { name: 'Kawaii Beats', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' }, // Reliable placeholder
-    { name: 'K-Pop Chill', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3' } // Reliable placeholder
+    { name: 'AUR - SHIKAYAT', url: 'songs/AUR - SHIKAYAT - Raffey - Usama - Ahad (Official Music Video).mp3' },
+    { name: 'Fairytale', url: 'songs/Alexander Rybak - Fairytale (Lyrics) Norway  Eurovision Winner 2009.mp3' },
+    { name: 'Aurora - Runaway', url: 'songs/Aurora - Runaway (Lyrics).mp3' },
+    { name: 'Beach Weather', url: 'songs/Beach Weather - sex, drugs, etc. (Lyrics).mp3' },
+    { name: 'Shinunoga E-Wa', url: 'songs/Fujii Kaze - Shinunoga E-Wa (Lyrics).mp3' },
+    { name: 'KHAIRIYAT', url: 'songs/Full Song_ KHAIRIYAT (BONUS TRACK)  CHHICHHORE  Sushant, Shraddha  Pritam, Amitabh BArijit Singh.mp3' },
+    { name: 'Jhume Re Gori', url: 'songs/Gangubai Kathiawadi  Jhume Re Gori Lyrical  Sanjay Leela Bhansali  Alia Bhatt.mp3' },
+    { name: 'Kabhi Kabhi Aditi', url: 'songs/Kabhi Kabhi Aditi Lyrics - Rashid Ali, A.R. Rahman  Jaane Tu Ya Jaane Na.mp3' },
+    { name: 'Miracle', url: 'songs/Miracle (기적은 너와 내가 함께하는....mp3' },
+    { name: 'NewJeans Ditto', url: "songs/NewJeans 'Ditto' Lyrics (뉴진스 Ditto 가사) (Color Coded Lyrics).mp3" },
+    { name: 'Strawberries & Cigarettes', url: 'songs/Strawberries & Cigarettes.mp3' },
+    { name: 'Surf Curse - Freaks', url: 'songs/Surf Curse - Freaks [Official Audio].mp3' },
+    { name: 'TXT - Run Away', url: 'songs/TXT - Run Away (Color Coded Lyrics EngRomHan가사).mp3' },
+    { name: 'Love Story', url: 'songs/Taylor Swift - Love Story (Lyrics).mp3' },
+    { name: 'Tu Hai Kahan', url: 'songs/Tu Hai Kahan by AUR  تو ہے کہاں (Official Music Video).mp3' },
+    { name: 'Maps', url: 'songs/Yeah Yeah Yeahs - Maps (Lyrics).mp3' }
   ];
   
   let currentSongIndex = parseInt(sessionStorage.getItem('fc_music_index') || '0');

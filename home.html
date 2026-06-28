@@ -32,7 +32,9 @@
     .tama-screen::before { content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 3px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:2; transition: opacity 0.4s; }
     .tama-screen.wide-mode::before { opacity: 0.15; }
     
-    .screen-text { font-family:'Space Mono',monospace;font-size:11px;color:#1a2e25;line-height:1.8;text-align:center;white-space:pre-wrap;z-index:3;font-weight:700; width:100%; word-wrap:break-word;}
+    .screen-text { font-family:'Space Mono',monospace;font-size:14px;color:#1a2e25;line-height:1.6;text-align:center;white-space:pre-wrap;z-index:3;font-weight:700; width:100%; word-wrap:break-word; height:100%;}
+    .screen-text::-webkit-scrollbar { display:none; }
+    .screen-text { -ms-overflow-style: none; scrollbar-width: none; }
     .screen-icon { font-size:46px;z-index:3;transition:transform 0.2s; }
     
     .screen-media { display: none; width: 100%; height: 100%; object-fit: contain; z-index: 2; position: absolute; top:0; left:0; }
@@ -471,33 +473,29 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
         let start=Math.max(0,listIndex-2);
         if(start+5>items.length)start=Math.max(0,items.length-5);
         let visible=items.slice(start,start+5);
-        let display=`--- ${folders[folderIndex].toUpperCase()} ---\n`;
+        let display=`--- ${folders[folderIndex].toUpperCase()} ---\n\n`;
         visible.forEach((it,idx)=>{
           let ri=start+idx;
-          let safeTitle = (it && it.title) ? String(it.title).substring(0,14) : 'Unknown';
-          display+=(ri===listIndex?'> ':'  ')+safeTitle+'\n';
+          display+=(ri===listIndex?'> ':'  ')+it.title+'\n';
         });
+        textEl.style.fontSize = ''; // Revert to CSS default (14px)
         textEl.style.textAlign='left';textEl.textContent=display;
+        textEl.style.overflowY = 'hidden';
+        textEl.scrollTop = 0;
       } else {
         iconEl.innerHTML='';
         const it = items[listIndex];
-        if(it.type === 'Story') {
-           textEl.style.overflowY = 'auto';
-           textEl.style.textAlign = 'left';
-           textEl.textContent = it.content;
-        } else {
-           textEl.style.overflowY = 'hidden';
-           let start=readPage*linesPerPage;
-           let visible=readLines.slice(start,start+linesPerPage);
-           let pg=Math.floor(readLines.length/linesPerPage)||0;
-           let display=`[${it.title.substring(0,12)}] ${readPage+1}/${pg+1}\n`;
-           display+=visible.join('\n');
-           textEl.style.textAlign='left';textEl.textContent=display;
-        }
+        textEl.style.overflowY = 'scroll';
+        textEl.style.scrollbarWidth = 'none';
+        textEl.style.fontSize = '14px'; // Slightly larger for reading
+        textEl.style.whiteSpace = 'pre-wrap';
+        textEl.style.textAlign = 'left';
+        textEl.textContent = `[ ${it.title.toUpperCase()} ]\n\n${it.content || it.description}`;
+        textEl.scrollTop = 0;
       }
     }
     
-    function chunkText(text){const words=text.split(/[ \n]+/);let lines=[],cur="";words.forEach(w=>{if((cur+w).length>18){lines.push(cur);cur=w+" ";}else cur+=w+" ";});if(cur)lines.push(cur);return lines;}
+    function chunkText(text){ return [text]; }
     
     function initReader(){
       allItems=getAllItems();

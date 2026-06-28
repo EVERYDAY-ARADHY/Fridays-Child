@@ -247,8 +247,25 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       try{const r=await fetch(`/api/likes/${id}`);const d=await r.json();return d.count||0;}catch(e){return 0;}
     }
     async function doLike(btn,id){
-      try{const r=await fetch(`/api/likes/${id}`,{method:'POST'});const d=await r.json();btn.querySelector('.like-count').textContent=d.count;}catch(e){const s=btn.querySelector('.like-count');s.textContent=parseInt(s.textContent||'0')+1;}
-      btn.style.background='rgba(196,69,105,0.3)';setTimeout(()=>btn.style.background='rgba(255,255,255,0.9)',600);
+      if(localStorage.getItem('liked_'+id)){
+        // Already liked
+        btn.style.background='rgba(196,69,105,0.3)';
+        setTimeout(()=>btn.style.background='rgba(255,255,255,0.9)', 300);
+        return;
+      }
+      try{
+        const r=await fetch(`/api/likes/${id}`,{method:'POST'});
+        const d=await r.json();
+        btn.querySelector('.like-count').textContent=d.count;
+        localStorage.setItem('liked_'+id, 'true');
+        btn.querySelector('.material-symbols-outlined').style.color = '#c44569';
+      }catch(e){
+        const s=btn.querySelector('.like-count');
+        s.textContent=parseInt(s.textContent||'0')+1;
+        localStorage.setItem('liked_'+id, 'true');
+      }
+      btn.style.background='rgba(196,69,105,0.3)';
+      setTimeout(()=>btn.style.background='rgba(255,255,255,0.9)',600);
       burst(btn.getBoundingClientRect().x,btn.getBoundingClientRect().y,30);
     }
 
@@ -293,7 +310,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
           <div class="card-img-wrap">
             ${mediaHtml}
             <button class="like-btn" style="position:absolute;bottom:10px;right:10px;z-index:10;" onclick="event.stopPropagation();doLike(this,'${item.id}')">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1;">favorite</span>
+              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1;${localStorage.getItem('liked_'+item.id) ? 'color:#c44569;' : ''}">favorite</span>
               <span class="like-count">${likeCount}</span>
             </button>
           </div>

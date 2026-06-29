@@ -260,10 +260,10 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       const dbIds = customDb.map(i => i.id);
       const filteredLocal = customLocal.filter(i => !dbIds.includes(i.id));
       
-      return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i).map(i=>{
+      return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>{
         if(!i.content) i.content = i.description;
         return i;
-      });
+      }).map(i=>edited[i.id]?{...i,...edited[i.id]}:i);
     }
 
     let allItems=[], items=[], state='folders', folderIndex=0, listIndex=0, readLines=[], readPage=0;

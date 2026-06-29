@@ -15,7 +15,8 @@
     { name: 'TXT - Run Away', url: 'songs/txt-runaway.mp3' },
     { name: 'Love Story', url: 'songs/love-story.mp3' },
     { name: 'Tu Hai Kahan', url: 'songs/tu-hai-kahan.mp3' },
-    { name: 'Maps', url: 'songs/maps.mp3' }
+    { name: 'Maps', url: 'songs/maps.mp3' },
+    { name: 'Tongue Tied', url: 'songs/tongue-tied.mp3' }
   ];
   
   let currentSongIndex = parseInt(sessionStorage.getItem('fc_music_index') || '0');

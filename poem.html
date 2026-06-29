@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="/images/rabbit.png" type="image/png">
+  <meta property="og:title" content="Friday's Child">
+  <meta property="og:image" content="https://fridays-childislovingandgiving.vercel.app/images/rabbit.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://fridays-childislovingandgiving.vercel.app/images/rabbit.png">
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Friday's Child — Poem Detail</title>
@@ -82,7 +87,8 @@
         <h1 id="poemTitle" class="poem-title">Loading...</h1>
         <div id="poemCreator" class="poem-creator">@...</div>
         
-        <div id="poemDesc" class="poem-text">...</div>
+        <div id="poemDesc" class="poem-text" style="font-style:italic;color:#837375;margin-bottom:24px;font-size:14px;white-space:pre-wrap;">...</div>
+        <div id="poemContent" class="poem-text">...</div>
         
         <div class="action-row">
           <button id="likeBtn" class="action-btn" onclick="doLike()">
@@ -167,7 +173,8 @@
       if(item){
         document.getElementById('poemTitle').textContent=item.title;
         document.getElementById('poemCreator').textContent='@'+(item.creator||'anonymous');
-        document.getElementById('poemDesc').textContent=item.description;
+        document.getElementById('poemDesc').textContent=item.description || '';
+        document.getElementById('poemContent').textContent=item.content || '';
         
         if(item.image) {
            document.getElementById('poemBannerContainer').style.display = 'block';
@@ -179,6 +186,7 @@
       } else {
         document.getElementById('poemTitle').textContent="Not Found";
         document.getElementById('poemDesc').textContent="This poem has vanished into the digital void.";
+        document.getElementById('poemContent').textContent="";
       }
     }
     

@@ -585,10 +585,13 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       if(state==='read'&&(readPage+1)*linesPerPage<readLines.length){tone(587,'sine',0.1);readPage++;renderScreen();}
     });
     
-    // Keyboard Support
     document.addEventListener('keydown', (e) => {
       // Don't trigger if typing in the comment box or editing description
       if(document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') return;
+      
+      if(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+      }
       
       if(e.key === 'ArrowUp') document.getElementById('btnUp').click();
       if(e.key === 'ArrowDown') document.getElementById('btnDown').click();

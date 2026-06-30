@@ -246,16 +246,24 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     ];
 
     async function getAllItems(){
+      const customLocal=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
       let customDb = [];
       try {
         const res = await fetch('/api/items');
         if (res.ok) customDb = await res.json();
       } catch(e) { console.error('Failed to fetch DB items', e); }
       
-      return customDb.map(i=>{
+      const deleted=JSON.parse(localStorage.getItem('fc_deleted_ids')||'[]');
+      const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
+      
+      // Combine local and DB items (DB items take precedence if IDs match)
+      const dbIds = customDb.map(i => i.id);
+      const filteredLocal = customLocal.filter(i => !dbIds.includes(i.id));
+      
+      return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>{
         if(!i.content) i.content = i.description;
         return i;
-      });
+      }).map(i=>edited[i.id]?{...i,...edited[i.id]}:i);
     }
 
     let allItems=[], items=[], state='folders', folderIndex=0, listIndex=0, readLines=[], readPage=0;

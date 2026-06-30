@@ -36,7 +36,13 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
-      const items = await CustomItem.find().sort({ createdAt: -1 }).lean();
+      // Filter out any items created by 'mysha' so they don't appear in the gallery
+      const items = await CustomItem.find({
+        $or: [
+          { creator: { $exists: false } },
+          { creator: { $not: /mysha/i } }
+        ]
+      }).sort({ createdAt: -1 }).lean();
       res.status(200).json(items);
     } catch (err) {
       res.status(500).json({ error: err.message }, { bufferCommands: false });

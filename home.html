@@ -269,7 +269,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     let allItems=[], items=[], state='folders', folderIndex=0, listIndex=0, readLines=[], readPage=0;
     const folders = ['Poems', 'Stories', 'Essays', 'Art', 'Pictures'];
     const folderToType = {'Poems':'Poem', 'Stories':'Story', 'Essays':'Essay', 'Art':'Art', 'Pictures':'Picture'};
-    const linesPerPage=7;
+    const linesPerPage=11;
 
     function setViewState(newState) {
       state = newState;
@@ -508,9 +508,9 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
           textEl.textContent=`--- ${folders[folderIndex].toUpperCase()} ---\n\n  (Empty)`;
           return;
         }
-        let start=Math.max(0,listIndex-2);
-        if(start+5>items.length)start=Math.max(0,items.length-5);
-        let visible=items.slice(start,start+5);
+        let start=Math.max(0,listIndex-4);
+        if(start+9>items.length)start=Math.max(0,items.length-9);
+        let visible=items.slice(start,start+9);
         let display=`--- ${folders[folderIndex].toUpperCase()} ---\n\n`;
         visible.forEach((it,idx)=>{
           let ri=start+idx;

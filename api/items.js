@@ -37,12 +37,7 @@ module.exports = async (req, res) => {
   if (req.method === 'GET') {
     try {
       // Filter out any items created by 'mysha' so they don't appear in the gallery
-      const items = await CustomItem.find({
-        $or: [
-          { creator: { $exists: false } },
-          { creator: { $not: /mysha/i } }
-        ]
-      }).sort({ createdAt: -1 }).lean();
+      const items = await CustomItem.find().sort({ createdAt: -1 }).lean();
       res.status(200).json(items);
     } catch (err) {
       res.status(500).json({ error: err.message }, { bufferCommands: false });
@@ -53,6 +48,10 @@ module.exports = async (req, res) => {
       if (!itemData.id || !itemData.title || !itemData.type) {
         return res.status(400).json({ error: 'id, title, and type are required' }, { bufferCommands: false });
       }
+      
+      // Force creator name to prevent anyone else from taking credit
+      itemData.creator = 'Ms. Aditi';
+      
       const item = await CustomItem.create(itemData);
       res.status(201).json(item);
     } catch (err) {

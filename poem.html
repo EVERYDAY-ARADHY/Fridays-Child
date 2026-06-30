@@ -159,13 +159,7 @@
         if(res.ok) db = await res.json();
       } catch(e) {}
       
-      const edited = JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
-      const deleted = JSON.parse(localStorage.getItem('fc_deleted_items')||'[]');
-      if(deleted.includes(id)) return null;
-      
-      let it = [...DEFAULT_ITEMS, ...db].find(i=>i.id===id);
-      if(it && edited[id]) it = {...it, ...edited[id]};
-      return it;
+      return db.find(i=>i.id===id);
     }
 
     async function init() {

@@ -88,6 +88,11 @@ async function run() {
   const items = await CustomItem.find({});
   console.log(`Found ${items.length} items to backup.\n`);
 
+  // Save the full raw JSON array for restoration purposes
+  const jsonPath = path.join(BACKUP_DIR, 'database_backup.json');
+  fs.writeFileSync(jsonPath, JSON.stringify(items, null, 2));
+  console.log(`✅ Saved full database backup to: database_backup.json\n`);
+
   for (const item of items) {
     const safeTitle = sanitizeFilename(item.title) || item.id;
     

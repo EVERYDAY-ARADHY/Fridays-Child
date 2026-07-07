@@ -206,14 +206,32 @@
       }
     }
     async function doLike(){
+      let likedItems = JSON.parse(localStorage.getItem('fc_liked_items') || '[]');
+      if(likedItems.includes(itemId)) return;
+
       const btn=document.getElementById('likeBtn');
+      if(btn.dataset.liking) return;
+      btn.dataset.liking = 'true';
+
       burst(btn.getBoundingClientRect().x+50, btn.getBoundingClientRect().y, 40);
       try {
         const res=await fetch(`/api/likes/${itemId}`,{method:'POST'});
         const data=await res.json();
+        
+        likedItems.push(itemId);
+        localStorage.setItem('fc_liked_items', JSON.stringify(likedItems));
+        
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'default';
         document.getElementById('likeCountText').textContent=`${data.count||0} Likes`;
       } catch(e) {
         let cnt=parseInt(document.getElementById('likeCountText').textContent)||0;
+        
+        likedItems.push(itemId);
+        localStorage.setItem('fc_liked_items', JSON.stringify(likedItems));
+        
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'default';
         document.getElementById('likeCountText').textContent=`${cnt+1} Likes`;
       }
     }

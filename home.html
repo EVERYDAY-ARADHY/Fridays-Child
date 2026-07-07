@@ -683,6 +683,9 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       if(likedItems.includes(itemId)) return; // already liked
       
       const btn=document.getElementById('likeBtn');
+      if(btn.dataset.liking) return;
+      btn.dataset.liking = 'true';
+      
       burst(btn.getBoundingClientRect().x+50, btn.getBoundingClientRect().y, 40);
       try {
         const res=await fetch(`/api/likes/${itemId}`,{method:'POST'});

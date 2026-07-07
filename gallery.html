@@ -272,12 +272,13 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       try{const r=await fetch(`/api/likes/${id}`);const d=await r.json();return d.count||0;}catch(e){return 0;}
     }
     async function doLike(btn,id){
-      if(localStorage.getItem('liked_'+id)){
+      if(btn.dataset.liking || localStorage.getItem('liked_'+id)){
         // Already liked
         btn.style.background='rgba(196,69,105,0.3)';
         setTimeout(()=>btn.style.background='rgba(255,255,255,0.9)', 300);
         return;
       }
+      btn.dataset.liking = 'true';
       try{
         const r=await fetch(`/api/likes/${id}`,{method:'POST'});
         const d=await r.json();

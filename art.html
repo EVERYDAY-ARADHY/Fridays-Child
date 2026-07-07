@@ -86,7 +86,7 @@
         <img id="artImage" src="" alt="Art piece"/>
       </div>
       <div class="art-meta">
-        <div><span class="pixel-badge">Art</span></div>
+        <div><span class="pixel-badge" id="artBadge">Art</span></div>
         <h1 id="artTitle" class="art-title">Loading...</h1>
         <div id="artCreator" class="art-creator">@...</div>
         <div id="artDesc" class="art-desc">...</div>
@@ -175,6 +175,8 @@
         document.getElementById('artTitle').textContent=item.title;
         document.getElementById('artCreator').textContent='@'+(item.creator||'anonymous');
         document.getElementById('artDesc').textContent=item.description;
+        const badge = document.getElementById('artBadge');
+        if (badge) badge.textContent = item.type;
         fetchLikes();
         loadComments();
       } else {

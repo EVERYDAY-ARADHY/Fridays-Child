@@ -80,7 +80,7 @@
 
     <div class="poem-container">
       <div class="glass-card">
-        <div style="text-align:center;"><span class="pixel-badge">Poem</span></div>
+        <div style="text-align:center;"><span class="pixel-badge" id="poemBadge">Poem</span></div>
         <div id="poemBannerContainer" style="display:none;margin:20px auto;border-radius:16px;overflow:hidden;border:2px dashed #c44569;max-width:100%;box-shadow:inset 0 2px 8px rgba(0,0,0,0.1);">
           <img id="poemBannerImg" style="width:100%;max-height:300px;object-fit:cover;display:block;" />
         </div>
@@ -175,6 +175,9 @@
         document.getElementById('poemCreator').textContent='@'+(item.creator||'anonymous');
         document.getElementById('poemDesc').textContent=item.description || '';
         document.getElementById('poemContent').textContent=item.content || '';
+        
+        const badge = document.getElementById('poemBadge');
+        if (badge) badge.textContent = item.type;
         
         if(item.image) {
            document.getElementById('poemBannerContainer').style.display = 'block';

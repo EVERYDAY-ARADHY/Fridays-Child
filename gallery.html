@@ -212,7 +212,7 @@
     if(isOwner)document.getElementById('ownerBanner').style.display='block';
 
     const DEFAULT_ITEMS=[
-      {id:'poem1',title:"Monday's Child",type:'Poem',image:'',description:`Monday's child is fair of face,
+      {id:'poem1_v2',title:"Monday's Child",type:'Poem',image:'',description:`Monday's child is fair of face,
 Tuesday's child is full of grace,
 Wednesday's child is full of woe,
 Thursday's child has far to go,
@@ -226,8 +226,16 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       let customDb = [];
       try {
         const res = await fetch('/api/items');
-        if (res.ok) customDb = await res.json();
-      } catch(e) { console.error('Failed to fetch DB items', e); }
+        if (res.ok) {
+           customDb = await res.json();
+           localStorage.setItem('fc_db_cache', JSON.stringify(customDb));
+        } else {
+           customDb = JSON.parse(localStorage.getItem('fc_db_cache')||'[]');
+        }
+      } catch(e) { 
+        console.error('Failed to fetch DB items', e); 
+        customDb = JSON.parse(localStorage.getItem('fc_db_cache')||'[]');
+      }
       
       const deleted=JSON.parse(localStorage.getItem('fc_deleted_ids')||'[]');
       const edited=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');
@@ -297,10 +305,9 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       grid.innerHTML='';
       if(!filtered.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 20px;font-family:Space Mono,monospace;font-size:12px;font-weight:700;text-transform:uppercase;color:#837375;">No memories found</div>';return;}
       for(const item of filtered){
-        const isPoem=item.type==='Poem'||item.type==='Story';
+        const isPoem=item.type==='Poem'||item.type==='Story'||item.type==='Essay';
         const isMedia=['Art', 'Picture'].includes(item.type);
         const url=isPoem?`poem.html?id=${item.id}`:`art.html?id=${item.id}`;
-        const likeCount=await fetchLikes(item.id);
         const ov=isOwner?`<div class="owner-overlay"><button class="ov-btn edit" onclick="event.stopPropagation();openEdit('${item.id}')">Edit</button><button class="ov-btn delete" onclick="event.stopPropagation();doDelete('${item.id}')">Delete</button></div>`:'';
         const card=document.createElement('article');
         card.className='gallery-card';
@@ -328,7 +335,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
             ${mediaHtml}
             <button class="like-btn" style="position:absolute;bottom:10px;right:10px;z-index:10;" onclick="event.stopPropagation();doLike(this,'${item.id}')">
               <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1;${localStorage.getItem('liked_'+item.id) ? 'color:#c44569;' : ''}">favorite</span>
-              <span class="like-count">${likeCount}</span>
+              <span class="like-count" id="like-count-${item.id}">...</span>
             </button>
           </div>
           <div style="padding:16px;background:#fff0f5;">
@@ -341,6 +348,12 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
           </div>`;
         card.addEventListener('click',()=>window.location.href=url);
         grid.appendChild(card);
+        
+        // Fetch like count asynchronously so it doesn't block rendering
+        fetchLikes(item.id).then(count => {
+          const countEl = document.getElementById(`like-count-${item.id}`);
+          if(countEl) countEl.textContent = count;
+        });
       }
     }
     

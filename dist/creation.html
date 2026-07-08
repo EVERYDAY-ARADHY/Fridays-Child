@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="/images/rabbit.png" type="image/png">
+  <meta property="og:title" content="Friday's Child">
+  <meta property="og:image" content="https://fridays-childislovingandgiving.vercel.app/images/rabbit.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://fridays-childislovingandgiving.vercel.app/images/rabbit.png">
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Friday's Child — Studio</title>
@@ -8,11 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <style>
-    * { cursor:url('/assets/cursor8-DSnaCXVK.png') 4 4,auto!important; box-sizing:border-box; }
+    * { cursor:url('cursor8.png') 4 4,auto!important; box-sizing:border-box; }
     *::selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
     *::-moz-selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
-    a,button,[onclick] { cursor:url('/assets/cursor8-DSnaCXVK.png') 4 4,pointer!important; }
-    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; }
+    a,button,[onclick] { cursor:url('cursor8.png') 4 4,pointer!important; }
+    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; overflow-x:hidden; }
     body::before { content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(139,26,74,0.06) 1px,transparent 1px),linear-gradient(to bottom,rgba(139,26,74,0.06) 1px,transparent 1px);background-size:24px 24px;z-index:0; }
     .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
 
@@ -21,7 +26,16 @@
     .nav-link { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b1d4a;text-decoration:none;padding:7px 13px;border-radius:8px;transition:all 0.15s; }
     .nav-link:hover,.nav-link.active { background:rgba(196,69,105,0.25);color:#8b1a4a; }
     .user-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:5px 14px;border-radius:20px;background:#fff0f5;box-shadow:3px 3px 8px rgba(196,69,105,0.15),-3px -3px 8px rgba(255,255,255,0.9);color:#8b1a4a; }
-    .owner-badge { background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
+    .owner-badge {
+    @media (max-width: 768px) {
+      .top-nav { flex-direction: column; gap: 12px; padding: 12px 16px; }
+      #topNav nav { flex-wrap: wrap; justify-content: center; gap: 8px !important; }
+      .site-name { font-size: 16px !important; }
+      .gallery-card { width: 100%; }
+      #galleryGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)) !important; }
+      .poem-container, .art-container, .clay-card { width: 100% !important; border-radius: 16px !important; }
+    }
+ background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
 
     .clay-form { background:#fff0f5;box-shadow:12px 12px 24px rgba(196,69,105,0.13),-12px -12px 24px rgba(255,255,255,0.88),inset 2px 2px 4px rgba(255,255,255,0.7);border:2px dashed rgba(196,69,105,0.35);border-radius:24px;padding:36px 32px; }
     
@@ -53,14 +67,25 @@
       window.location.replace('gallery.html');
     }
   </script>
-  <script type="module" crossorigin src="/assets/music-B5jG-kJx.js"></script>
+  <script type="module" crossorigin src="/assets/music-BZ0Zj8ig.js"></script>
 </head>
 <body>
   <canvas id="burstCanvas"></canvas>
-  <img src="/assets/1-XX-WDT1Q.png" class="sticker" style="width:75px;top:8%;left:2%;animation:float 4.5s ease-in-out infinite;"/>
-  <img src="/assets/5-B2HtZyqr.png" class="sticker" style="width:62px;top:28%;right:2%;animation:float-r 5.5s ease-in-out infinite 0.8s;"/>
-  <img src="/assets/6-DRIjlZao.png" class="sticker" style="width:52px;bottom:20%;left:1.5%;animation:float 6s ease-in-out infinite 1.4s;"/>
-  <img src="/assets/4-ANsq_8lO.png" class="sticker" style="width:68px;bottom:16%;right:3%;animation:float-r 4.5s ease-in-out infinite 0.4s;"/>
+  <img src="/images/1.png" class="sticker" style="width:75px;top:8%;left:2%;animation:float 4.5s ease-in-out infinite;"/>
+  <img src="/images/5.png" class="sticker" style="width:62px;top:28%;right:2%;animation:float-r 5.5s ease-in-out infinite 0.8s;"/>
+  <img src="/images/6.png" class="sticker" style="width:52px;bottom:20%;left:1.5%;animation:float 6s ease-in-out infinite 1.4s;"/>
+  <img src="/images/4.png" class="sticker" style="width:68px;bottom:16%;right:3%;animation:float-r 4.5s ease-in-out infinite 0.4s;"/>
+
+  <div class="sticker" style="top:35%;left:5%;animation:float 7s ease-in-out infinite 0.2s;font-family:'Silkscreen',cursive;color:#c44569;font-size:20px;opacity:0.4;transform:rotate(-15deg);font-weight:bold;">#MUNCHID4LIFE</div>
+  <div class="sticker" style="top:70%;right:8%;animation:float-r 6.5s ease-in-out infinite 1.1s;font-family:'Silkscreen',cursive;color:#c44569;font-size:18px;opacity:0.4;transform:rotate(10deg);font-weight:bold;">#TXT</div>
+  <img src="/images/scar.png" class="sticker" style="width:70px;top:75%;left:25%;animation:float-r 6s ease-in-out infinite 1.2s;"/>
+
+  <img src="/images/alien.png" class="sticker" style="width:65px;top:50%;left:15%;animation:float 5.5s ease-in-out infinite 0.4s;"/>
+
+  <div class="sticker" style="top:40%;right:25%;animation:float 7.5s ease-in-out infinite 0.9s;font-family:'Silkscreen',cursive;color:#c44569;font-size:22px;opacity:0.3;transform:rotate(-8deg);font-weight:bold;">#NEWJEANS</div>
+
+  <div class="sticker" style="top:15%;right:12%;animation:float 8s ease-in-out infinite 0.7s;font-family:'Silkscreen',cursive;color:#c44569;font-size:16px;opacity:0.3;transform:rotate(15deg);font-weight:bold;">#MUNCHID4LIFE</div>
+
 
   <header class="top-nav" id="topNav"></header>
 
@@ -81,12 +106,12 @@
         <select id="typeWritten" class="clay-input" onchange="updateFormLabels()">
           <option value="Poem">Poem</option>
           <option value="Story">Story</option>
+          <option value="Essay">Essay</option>
         </select>
         <select id="typeVisual" class="clay-input" style="display:none;" onchange="updateFormLabels()">
           <option value="Art">Art</option>
           <option value="Picture">Picture</option>
-          <option value="Video">Video</option>
-        </select>
+                  </select>
       </div>
 
       <div style="margin-bottom:20px;">
@@ -107,7 +132,13 @@
           <span style="font-family:'Space Mono',monospace;font-size:10px;color:#837375;text-transform:uppercase;">JPG, PNG, GIF, MP4</span>
         </div>
         <input type="file" id="fileInput" style="display:none;" accept="image/*,video/*"/>
-        <div id="previewArea" style="display:none;margin-top:12px;position:relative;border:2px dashed rgba(196,69,105,0.5);border-radius:12px;overflow:hidden;height:120px;background:#e090b8;display:none;align-items:center;justify-content:center;">
+        
+        <div style="margin-top:12px; text-align:center;">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:#837375;">— OR —</span>
+        </div>
+        <input type="text" id="mediaUrlInput" class="clay-input" style="margin-top:8px;" placeholder="Paste a direct image or video URL here..." oninput="handleUrlInput()"/>
+
+        <div id="previewArea" style="display:none;margin-top:12px;position:relative;border:2px dashed rgba(196,69,105,0.5);border-radius:12px;overflow:hidden;height:120px;background:#e090b8;align-items:center;justify-content:center;">
           <img id="imagePreview" style="width:100%;height:100%;object-fit:cover;display:none;"/>
           <video id="videoPreview" style="width:100%;height:100%;object-fit:cover;display:none;" autoplay loop muted playsinline></video>
           <button onclick="clearImage(event)" style="position:absolute;top:6px;right:6px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:#ba1a1a;box-shadow:2px 2px 6px rgba(0,0,0,0.15);z-index:10;">
@@ -117,8 +148,13 @@
       </div>
 
       <div style="margin-bottom:28px;">
-        <label class="field-label" id="descLabel">Poem Content</label>
-        <textarea id="entryDesc" class="clay-input" rows="5" placeholder="Write your poem here..."></textarea>
+        <label class="field-label" id="descLabel">Description / Lore</label>
+        <textarea id="entryDesc" class="clay-input" rows="3" placeholder="Significance to her, lore, or description..."></textarea>
+      </div>
+
+      <div id="contentContainer" style="margin-bottom:28px; display:none;">
+        <label class="field-label" id="contentLabel">Poem / Story Body</label>
+        <textarea id="entryContent" class="clay-input" rows="8" placeholder="Write your poem or story here..."></textarea>
       </div>
 
       <button onclick="publish()" class="clay-button" style="width:100%;">
@@ -176,13 +212,28 @@
     
     function updateFormLabels() {
       const type = currentMainType === 'Written' ? document.getElementById('typeWritten').value : document.getElementById('typeVisual').value;
-      let label = 'Poem Content';
-      let ph = 'Write your poem here...';
-      if(type==='Story') { label = 'Story Content'; ph = 'Write your story here...'; }
-      if(['Art', 'Picture', 'Video'].includes(type)) { label = 'Description'; ph = 'Tell us about this piece...'; }
+      const isVisual = currentMainType === 'Visual';
       
-      document.getElementById('descLabel').textContent = label;
-      document.getElementById('entryDesc').placeholder = ph;
+      const contentCont = document.getElementById('contentContainer');
+      if(contentCont) {
+         if(isVisual) {
+            contentCont.style.display = 'none';
+            document.getElementById('descLabel').textContent = 'Description / Lore';
+            document.getElementById('entryDesc').placeholder = 'Tell us about this artwork...';
+         } else {
+            contentCont.style.display = 'block';
+            document.getElementById('descLabel').textContent = 'Significance to Her / Lore';
+            document.getElementById('entryDesc').placeholder = 'Why is this significant...';
+            
+            let label = 'Poem Content';
+            let ph = 'Write your poem here...';
+            if(type==='Story') { label = 'Story Content'; ph = 'Write your story here...'; }
+            if(type==='Essay') { label = 'Essay Content'; ph = 'Write your essay here...'; }
+            
+            document.getElementById('contentLabel').textContent = label;
+            document.getElementById('entryContent').placeholder = ph;
+         }
+      }
     }
 
     document.getElementById('fileInput').addEventListener('change',function(e){
@@ -191,9 +242,79 @@
       
       isVideo = file.type.startsWith('video/');
       
+      if(isVideo && file.size > 4 * 1024 * 1024) {
+        alert("This video is too large! Please compress it under 4MB, OR host it on a site like YouTube/Discord and paste the link into the URL box below!");
+        this.value = '';
+        return;
+      }
+      
       const reader=new FileReader();
       reader.onload=function(event){
-        currentImage=event.target.result;
+        if(isVideo) {
+          currentImage=event.target.result;
+          document.getElementById('videoPreview').src=currentImage;
+          document.getElementById('videoPreview').style.display='block';
+          document.getElementById('imagePreview').style.display='none';
+          showPreviewArea();
+        } else {
+          // Compress Image!
+          const img = new Image();
+          img.onload = function() {
+            const MAX_WIDTH = 1200;
+            const MAX_HEIGHT = 1200;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            currentImage = canvas.toDataURL('image/jpeg', 0.7);
+            
+            if (currentImage.length > 4 * 1024 * 1024) {
+               alert("Image is still too large after compression. Please use the URL box instead.");
+               clearImage({stopPropagation:()=>{}});
+               return;
+            }
+
+            document.getElementById('imagePreview').src = currentImage;
+            document.getElementById('imagePreview').style.display = 'block';
+            document.getElementById('videoPreview').style.display = 'none';
+            showPreviewArea();
+          };
+          img.src = event.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function showPreviewArea() {
+      document.getElementById('previewArea').style.display='flex';
+      document.querySelector('.drop-zone').style.display='none';
+      document.getElementById('mediaUrlInput').style.display='none';
+      burst(window.innerWidth/2,window.innerHeight/2,40);
+    }
+
+    function handleUrlInput() {
+      const url = document.getElementById('mediaUrlInput').value.trim();
+      if(url) {
+        currentImage = url;
+        // Basic check for video extensions in URL
+        isVideo = url.match(/\.(mp4|webm|ogg)$/i) != null;
         
         if(isVideo) {
           document.getElementById('videoPreview').src=currentImage;
@@ -207,22 +328,29 @@
         
         document.getElementById('previewArea').style.display='flex';
         document.querySelector('.drop-zone').style.display='none';
-        burst(window.innerWidth/2,window.innerHeight/2,40);
-      };
-      reader.readAsDataURL(file);
-    });
+      } else {
+        clearImage({stopPropagation: ()=>{}});
+      }
+    }
 
     function clearImage(e){
       e.stopPropagation();
       currentImage='';
       document.getElementById('fileInput').value='';
+      document.getElementById('mediaUrlInput').value='';
+      document.getElementById('mediaUrlInput').style.display='block';
       document.getElementById('previewArea').style.display='none';
       document.querySelector('.drop-zone').style.display='flex';
     }
 
-    function publish(){
+    let isPublishing = false;
+    async function publish(){
+      if(isPublishing) return;
+      
       const title=document.getElementById('entryTitle').value.trim();
       const desc=document.getElementById('entryDesc').value.trim();
+      const contentEl=document.getElementById('entryContent');
+      const contentText=contentEl ? contentEl.value.trim() : null;
       const keyword=document.getElementById('entryKeyword').value.trim();
       const activeType = currentMainType === 'Written' ? document.getElementById('typeWritten').value : document.getElementById('typeVisual').value;
       
@@ -231,20 +359,47 @@
       if(needsMedia&&!currentImage)return alert('Media is required for Visual items!');
       if(needsMedia&&!keyword)return alert('Keyword is required for the pixel effect!');
       
+      isPublishing = true;
+      const btn = document.querySelector('button[onclick="publish()"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Publishing...';
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'wait';
+      
       const newItem={
         id:'custom_'+Date.now(),
         title,
         type:activeType,
         description:desc,
+        content:contentText || null,
         keyword: keyword || null,
         image: currentImage || null,
         isVideo: isVideo,
         creator:username,
         likes:0
       };
-      const customItems=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
-      customItems.unshift(newItem);
-      localStorage.setItem('fc_custom_items',JSON.stringify(customItems));
+      
+      try {
+        const res = await fetch('/api/items', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newItem)
+        });
+        if (!res.ok) throw new Error('Failed to save to database');
+      } catch (err) {
+        console.error(err);
+        alert('Could not save to database, but will try saving locally as backup.');
+        const customItems=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
+        customItems.unshift(newItem);
+        localStorage.setItem('fc_custom_items',JSON.stringify(customItems));
+      } finally {
+        isPublishing = false;
+        if(btn) {
+          btn.innerHTML = originalText;
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+        }
+      }
       
       burst(window.innerWidth/2,window.innerHeight/2,50);
       setTimeout(()=>window.location.href='gallery.html',800);

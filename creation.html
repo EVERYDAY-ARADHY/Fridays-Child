@@ -17,7 +17,7 @@
     *::selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
     *::-moz-selection { background: #ffb6c1 !important; color: #3d1a2e !important; }
     a,button,[onclick] { cursor:url('cursor8.png') 4 4,pointer!important; }
-    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; }
+    body { background:linear-gradient(135deg,#fff0f5 0%,#ffe4e8 50%,#f0d0e0 100%);min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;padding-bottom:20px; overflow-x:hidden; }
     body::before { content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(139,26,74,0.06) 1px,transparent 1px),linear-gradient(to bottom,rgba(139,26,74,0.06) 1px,transparent 1px);background-size:24px 24px;z-index:0; }
     .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
 
@@ -26,7 +26,16 @@
     .nav-link { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b1d4a;text-decoration:none;padding:7px 13px;border-radius:8px;transition:all 0.15s; }
     .nav-link:hover,.nav-link.active { background:rgba(196,69,105,0.25);color:#8b1a4a; }
     .user-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:5px 14px;border-radius:20px;background:#fff0f5;box-shadow:3px 3px 8px rgba(196,69,105,0.15),-3px -3px 8px rgba(255,255,255,0.9);color:#8b1a4a; }
-    .owner-badge { background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
+    .owner-badge {
+    @media (max-width: 768px) {
+      .top-nav { flex-direction: column; gap: 12px; padding: 12px 16px; }
+      #topNav nav { flex-wrap: wrap; justify-content: center; gap: 8px !important; }
+      .site-name { font-size: 16px !important; }
+      .gallery-card { width: 100%; }
+      #galleryGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)) !important; }
+      .poem-container, .art-container, .clay-card { width: 100% !important; border-radius: 16px !important; }
+    }
+ background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
 
     .clay-form { background:#fff0f5;box-shadow:12px 12px 24px rgba(196,69,105,0.13),-12px -12px 24px rgba(255,255,255,0.88),inset 2px 2px 4px rgba(255,255,255,0.7);border:2px dashed rgba(196,69,105,0.35);border-radius:24px;padding:36px 32px; }
     

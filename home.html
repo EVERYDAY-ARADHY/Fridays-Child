@@ -26,7 +26,16 @@
     .nav-link { font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b1d4a;text-decoration:none;padding:7px 13px;border-radius:8px;transition:all 0.15s; }
     .nav-link:hover,.nav-link.active { background:rgba(196,69,105,0.25);color:#8b1a4a; }
     .user-badge { font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:5px 14px;border-radius:20px;background:#fff0f5;box-shadow:3px 3px 8px rgba(196,69,105,0.15),-3px -3px 8px rgba(255,255,255,0.9);color:#8b1a4a; }
-    .owner-badge { background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
+    .owner-badge {
+    @media (max-width: 768px) {
+      .top-nav { flex-direction: column; gap: 12px; padding: 12px 16px; }
+      #topNav nav { flex-wrap: wrap; justify-content: center; gap: 8px !important; }
+      .site-name { font-size: 16px !important; }
+      .gallery-card { width: 100%; }
+      #galleryGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)) !important; }
+      .poem-container, .art-container, .clay-card { width: 100% !important; border-radius: 16px !important; }
+    }
+ background:linear-gradient(135deg,#ffe8a0,#ffd060);box-shadow:3px 3px 8px rgba(180,140,0,0.2);color:#5a3e00; }
 
     .tama-frame { background:linear-gradient(145deg,#f0b8d0,#e090b8);box-shadow:16px 16px 32px rgba(139,26,74,0.2),-12px -12px 28px rgba(255,255,255,0.9),inset 2px 2px 8px rgba(255,255,255,0.4);border:3px dashed rgba(196,69,105,0.45);border-radius:48px;padding:24px;position:relative; width:min(320px,92vw); margin:0 auto; transition: width 0.4s ease, border-radius 0.4s ease; }
     .tama-frame.wide-mode { width: min(850px, 95vw); border-radius: 32px; padding: 20px; }

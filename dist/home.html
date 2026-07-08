@@ -579,6 +579,12 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
     }
     
     async function initReader(){
+      const textEl=document.getElementById('screenText');
+      textEl.style.textAlign='center';
+      textEl.style.fontSize='12px';
+      textEl.style.whiteSpace='pre-wrap';
+      textEl.textContent='\n\n\n[ SYSTEM BOOT ]\n\nLoading modules...';
+      
       allItems=await getAllItems();
       state='folders';
       folderIndex=0;

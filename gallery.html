@@ -50,7 +50,7 @@
     .like-btn:active { transform:translate(2px,2px);box-shadow:0 0 0 #8b1a4a; }
     .owner-overlay { position:absolute;top:10px;left:10px;display:flex;gap:6px;opacity:0;transition:opacity 0.2s;z-index:20; }
     .gallery-card:hover .owner-overlay { opacity:1; }
-    .ov-btn { font-family:'Space Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:5px 11px;border-radius:0;border:2px solid;backdrop-filter:blur(8px);transition:all 0.1s; }
+    .ov-btn { display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:2px solid;backdrop-filter:blur(8px);transition:all 0.1s;cursor:pointer; }
     .ov-btn.edit { background:rgba(207,207,227,0.92);border-color:#9b8ed4;color:#444655;box-shadow:2px 2px 0 #9b8ed4; }
     .ov-btn.delete { background:rgba(255,218,214,0.92);border-color:#ba1a1a;color:#93000a;box-shadow:2px 2px 0 #ba1a1a; }
     .ov-btn:active { transform:translate(2px,2px);box-shadow:0 0 0; }
@@ -309,7 +309,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
         const isPoem=item.type==='Poem'||item.type==='Story'||item.type==='Essay';
         const isMedia=['Art', 'Picture'].includes(item.type);
         const url=isPoem?`poem.html?id=${item.id}`:`art.html?id=${item.id}`;
-        const ov=isOwner?`<div class="owner-overlay"><button class="ov-btn edit" onclick="event.stopPropagation();openEdit('${item.id}')">Edit</button><button class="ov-btn delete" onclick="event.stopPropagation();doDelete('${item.id}')">Delete</button></div>`:'';
+        const ov=isOwner?`<div class="owner-overlay"><button class="ov-btn edit" onclick="event.stopPropagation();openEdit('${item.id}')"><span class="material-symbols-outlined" style="font-size:18px;">edit</span></button><button class="ov-btn delete" onclick="event.stopPropagation();doDelete('${item.id}')"><span class="material-symbols-outlined" style="font-size:18px;">delete</span></button></div>`:'';
         const card=document.createElement('article');
         card.className='gallery-card';
         

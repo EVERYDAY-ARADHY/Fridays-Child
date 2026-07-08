@@ -246,16 +246,32 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
       
       return [...DEFAULT_ITEMS,...filteredLocal,...customDb].filter(i=>!deleted.includes(i.id)).map(i=>edited[i.id]?{...i,...edited[i.id]}:i);
     }
-    function deleteItemById(id){
+    async function deleteItemById(id){
       const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
       if(custom.some(i=>i.id===id)){localStorage.setItem('fc_custom_items',JSON.stringify(custom.filter(i=>i.id!==id)));}
       else{const d=JSON.parse(localStorage.getItem('fc_deleted_ids')||'[]');d.push(id);localStorage.setItem('fc_deleted_ids',JSON.stringify(d));}
+
+      if(id.startsWith('custom_')) {
+        try {
+          await fetch(`/api/items?id=${id}`, { method: 'DELETE' });
+        } catch(e) { console.error('Failed to delete from server:', e); }
+      }
     }
-    function saveEditById(id,upd){
+    async function saveEditById(id,upd){
       const custom=JSON.parse(localStorage.getItem('fc_custom_items')||'[]');
       const ci=custom.findIndex(i=>i.id===id);
       if(ci>=0){Object.assign(custom[ci],upd);localStorage.setItem('fc_custom_items',JSON.stringify(custom));}
       else{const ed=JSON.parse(localStorage.getItem('fc_edited_items')||'{}');ed[id]={...(ed[id]||{}),...upd};localStorage.setItem('fc_edited_items',JSON.stringify(ed));}
+
+      if(id.startsWith('custom_')) {
+        try {
+          await fetch(`/api/items?id=${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(upd)
+          });
+        } catch(e) { console.error('Failed to update server:', e); }
+      }
     }
 
     const grid=document.getElementById('galleryGrid');

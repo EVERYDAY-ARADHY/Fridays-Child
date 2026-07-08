@@ -58,8 +58,33 @@ module.exports = async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: err.message }, { bufferCommands: false });
     }
+  } else if (req.method === 'DELETE') {
+    try {
+      const { id } = req.query;
+      if (!id) return res.status(400).json({ error: 'id query parameter is required' });
+      
+      const result = await CustomItem.deleteOne({ id });
+      if (result.deletedCount === 0) return res.status(404).json({ error: 'Item not found' });
+      
+      res.status(200).json({ message: 'Deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: err.message }, { bufferCommands: false });
+    }
+  } else if (req.method === 'PUT') {
+    try {
+      const { id } = req.query;
+      const updateData = req.body;
+      if (!id) return res.status(400).json({ error: 'id query parameter is required' });
+      
+      const item = await CustomItem.findOneAndUpdate({ id }, { $set: updateData }, { new: true });
+      if (!item) return res.status(404).json({ error: 'Item not found' });
+      
+      res.status(200).json(item);
+    } catch (err) {
+      res.status(500).json({ error: err.message }, { bufferCommands: false });
+    }
   } else {
-    res.setHeader('Allow', ['GET', 'POST']);
+    res.setHeader('Allow', ['GET', 'POST', 'DELETE', 'PUT']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };

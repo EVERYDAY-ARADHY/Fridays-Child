@@ -415,7 +415,7 @@ Is bonny and blithe and good and gay.`,creator:'Mother Goose',likes:0}
 
     function doDelete(id){if(!confirm("Delete this item?"))return;deleteItemById(id);renderGallery();}
     let editingId=null;
-    function openEdit(id){const item=getAllItems().find(i=>i.id===id);if(!item)return;editingId=id;document.getElementById('editTitle').value=item.title;document.getElementById('editCaption').value=item.description;document.getElementById('editType').value=item.type;document.getElementById('editModal').style.display='flex';}
+    async function openEdit(id){const all = await getAllItems();const item=all.find(i=>i.id===id);if(!item)return;editingId=id;document.getElementById('editTitle').value=item.title;document.getElementById('editCaption').value=item.description;document.getElementById('editType').value=item.type;document.getElementById('editModal').style.display='flex';}
     function saveEdit(){if(!editingId)return;const t=document.getElementById('editTitle').value.trim();const c=document.getElementById('editCaption').value.trim();const ty=document.getElementById('editType').value;if(!t||!c)return;saveEditById(editingId,{title:t,description:c,type:ty});document.getElementById('editModal').style.display='none';editingId=null;renderGallery();}
 
     document.getElementById('searchInput').addEventListener('input',e=>{searchQuery=e.target.value;renderGallery();});

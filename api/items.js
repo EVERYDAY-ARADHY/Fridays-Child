@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
       }
       
       // Force creator name to prevent anyone else from taking credit
-      itemData.creator = 'Ms. Aditi';
+      itemData.creator = "Friday's Child";
       
       const item = await CustomItem.create(itemData);
       res.status(201).json(item);

@@ -1,7 +1,7 @@
 {
   "name": "fridays-child",
   "version": "2.0.0",
-  "description": "Friday's Child — A Cutecore Gallery by Ms. Aditi",
+  "description": "Friday's Child — A Cutecore Gallery",
   "main": "server.js",
   "scripts": {
     "dev": "concurrently \"npm run start\" \"vite\"",

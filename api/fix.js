@@ -14,8 +14,8 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const result = await CustomItem.updateMany({}, { $set: { creator: 'Ms. Aditi' } });
-    res.status(200).json({ success: true, message: `Successfully updated all items back to Ms. Aditi! Modified ${result.modifiedCount} items.` });
+    const result = await CustomItem.updateMany({}, { $set: { creator: "Friday's Child" } });
+    res.status(200).json({ success: true, message: `Successfully updated all items to Friday's Child! Modified ${result.modifiedCount} items.` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

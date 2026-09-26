@@ -163,7 +163,7 @@
       </div>
 
       <div id="ownerForm" style="display:none;">
-        <p style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#6b1d4a;text-align:center;margin-bottom:20px;">Welcome back, Ms. Aditi.</p>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#6b1d4a;text-align:center;margin-bottom:20px;">Welcome back, Friday's Child.</p>
         <div style="margin-bottom:14px;">
           <label class="field-label" for="ownerUsername">
             <span class="material-symbols-outlined" style="font-size:15px;">person</span> Username
@@ -183,10 +183,10 @@
         </div>
         <div id="ownerError" class="error-strip" style="display:none;margin-bottom:14px;">Wrong credentials — try again</div>
         <button onclick="enterAsOwner()" class="clay-button" style="width:100%;background:linear-gradient(135deg,#6b1d4a,#8b1a4a);box-shadow:0 4px 0 0 #3d0a28;">
-          Enter as Ms. Aditi
+          Enter as Friday's Child
           <span class="material-symbols-outlined" style="font-size:16px;font-variation-settings:'FILL' 1;">star</span>
         </button>
-        <p style="font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#837375;text-align:center;margin-top:14px;">Ms. Aditi can add, edit &amp; delete</p>
+        <p style="font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#837375;text-align:center;margin-top:14px;">Friday's Child can add, edit &amp; delete</p>
       </div>
 
       <p style="font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:#d5c2c4;text-align:center;margin-top:20px;">Friday's Child v2 — Cutecore</p>
@@ -222,8 +222,8 @@
     window.enterAsOwner = function(){
       const user=document.getElementById('ownerUsername').value.trim().toLowerCase();
       const pass=document.getElementById('ownerPass').value.trim();
-      if(user==='ms aditi'&&pass==="fridayschild"){
-        localStorage.setItem('fc_username','Ms. Aditi');
+      if((user==="friday's child" || user==="fridays child" || user==='ms aditi') && pass==="fridayschild"){
+        localStorage.setItem('fc_username',"Friday's Child");
         localStorage.setItem('fc_role','owner');
         window.location.href='home.html';
       } else {
